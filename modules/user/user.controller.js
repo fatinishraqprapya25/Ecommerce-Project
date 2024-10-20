@@ -90,6 +90,11 @@ userController.updateUserInfo = async (req, res) => {
     try {
         const userId = req.user.id;
         const updateData = req.body;
+        const fileName = req.file ? req.file.path : null;
+        if (fileName) {
+            let filePath = path.join(__dirname, "../../", fileName);
+            updateData.profile = filePath;
+        }
         const updatedUser = await userServices.updateUserInfo(userId, updateData);
         if (!updatedUser) {
             return sendResponse(res, 404, { success: false, message: "User not found" });
