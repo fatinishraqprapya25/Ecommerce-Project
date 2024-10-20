@@ -22,6 +22,16 @@ userValidations.userRegistrationValidationSchema = z.object({
     }),
 });
 
+userValidations.updateUserValidationSchema = z.object({
+    body: z.object({
+        firstName: z.string().min(1, "First name cannot be empty").optional(),
+        lastName: z.string().min(1, "Last name cannot be empty").optional(),
+        password: z.string().min(6, "Password must be at least 6 characters").optional(),
+        profile: z.string().optional()
+    }).partial()
+});
+
+
 
 userValidations.loginValidationSchema = z.object({
     body: z.object({

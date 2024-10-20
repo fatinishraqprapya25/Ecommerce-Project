@@ -88,7 +88,7 @@ userController.enableUser = async (req, res) => {
 
 userController.updateUserInfo = async (req, res) => {
     try {
-        const userId = req.params.id;
+        const userId = req.user.id;
         const updateData = req.body;
         const updatedUser = await userServices.updateUserInfo(userId, updateData);
         if (!updatedUser) {
