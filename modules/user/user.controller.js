@@ -32,8 +32,8 @@ userController.register = async (req, res) => {
 
 userController.login = async (req, res) => {
     try {
-        const { email, password } = req.body;
-        const { token, user } = await userServices.login(email, password);
+        const userInfo = req.body;
+        const { token, user } = await userServices.login(userInfo);
 
         sendResponse(res, 200, {
             success: true,
