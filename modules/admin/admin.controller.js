@@ -5,8 +5,8 @@ const adminController = {};
 
 adminController.createAdmin = async (req, res) => {
     try {
-        const adminData = req.body;
-        const admin = await adminService.createAdmin(adminData);
+        const { email } = req.body;
+        const admin = await adminService.createAdmin(email);
         sendResponse(res, 201, {
             success: true,
             message: "Admin created successfully",
@@ -15,7 +15,7 @@ adminController.createAdmin = async (req, res) => {
     } catch (err) {
         sendResponse(res, 400, {
             success: false,
-            message: "Failed to create or update admin",
+            message: "Failed to create admin",
             error: err.message
         });
     }

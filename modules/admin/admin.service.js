@@ -2,14 +2,13 @@ const User = require("./user.model");
 
 const adminService = {};
 
-adminService.createAdmin = async (adminData) => {
-    const existingUser = await User.findOne({ email: adminData.email });
+adminService.createAdmin = async (email) => {
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
         existingUser.role = "admin";
         return await existingUser.save();
     } else {
-        const newAdmin = new User({ ...adminData, role: "admin" });
-        return await newAdmin.save();
+        throw new Error("he must be a user!")
     }
 };
 
