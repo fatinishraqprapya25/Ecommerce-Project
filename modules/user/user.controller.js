@@ -3,10 +3,10 @@ const sendResponse = require("../../utils/sendResponse");
 
 const userController = {};
 
-userController.createUser = async (req, res) => {
+userController.register = async (req, res) => {
     try {
         const userData = req.body;
-        const newUser = await userServices.createUser(userData);
+        const newUser = await userServices.register(userData);
         sendResponse(res, 201, {
             success: true,
             message: "User registered successfully",

@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 
 const userServices = {};
 
-userServices.createUser = async (userData) => {
+userServices.register = async (userData) => {
     const user = new User(userData);
     return await user.save();
 }
