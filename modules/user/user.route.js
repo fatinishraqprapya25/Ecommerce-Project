@@ -6,7 +6,7 @@ const userMiddlewares = require("./user.middlewares");
 
 const userRoute = Router();
 
-userRoute.post("/register", userMiddlewares.uploader, validateRequest(userValidations.userRegistrationValidationSchema), userController.register);
+userRoute.post("/register", userMiddlewares.uploader, validateRequest(userValidations.userRegistrationValidationSchema, userMiddlewares.deteteUploadedPhotoIfValidationFailed), userController.register);
 userRoute.post("/login", validateRequest(userValidations.loginValidationSchema), userController.login);
 
 module.exports = userRoute;
