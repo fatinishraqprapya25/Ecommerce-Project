@@ -1,6 +1,8 @@
 const path = require("path");
+const bcrypt = require("bcrypt");
 const userServices = require("./user.service");
 const sendResponse = require("../../utils/sendResponse");
+const config = require("../../config");
 
 const userController = {};
 
@@ -90,6 +92,10 @@ userController.updateUserInfo = async (req, res) => {
     try {
         const userId = req.user.id;
         const updateData = req.body;
+        if (updateData.password) {
+            const hashedPassword = await bcrypt.hash(updateData.password, config.bcryptCircle);
+            updateData.password = hashedPassword;
+        }
         const fileName = req.file ? req.file.path : null;
         if (fileName) {
             let filePath = path.join(__dirname, "../../", fileName);
