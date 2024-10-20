@@ -26,6 +26,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ["active", "disabled"],
         default: "active"
+    },
+    profile: {
+        type: String
     }
 }, { timestamps: true });
 

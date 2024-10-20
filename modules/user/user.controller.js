@@ -1,3 +1,4 @@
+const path = require("path");
 const userServices = require("./user.service");
 const sendResponse = require("../../utils/sendResponse");
 
@@ -6,6 +7,14 @@ const userController = {};
 userController.register = async (req, res) => {
     try {
         const userData = req.body;
+        const fileName = req.file ? req.file.path : null;
+        let filePath;
+        if (fileName === null) {
+            filePath = path.join(__dirname, "../../uploads/profile", "avatar.jpg");
+        } else {
+            filePath = path.join(__dirname, "../../", fileName);
+        }
+        userData.profile = filePath;
         const newUser = await userServices.register(userData);
         sendResponse(res, 201, {
             success: true,
