@@ -1,4 +1,4 @@
-const userServices = require("./user.services");
+const userServices = require("./user.service");
 const sendResponse = require("../../utils/sendResponse");
 
 const userController = {};

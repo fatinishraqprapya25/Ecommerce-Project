@@ -6,6 +6,6 @@ const userValidations = require("./user.validations");
 const userRoute = Router();
 
 userRoute.post("/register", validateRequest(userValidations.userRegistrationValidationSchema), userController.register);
-userRoute.post("/login")
+userRoute.post("/login", validateRequest(userValidations.loginValidationSchema), userController.login);
 
 module.exports = userRoute;

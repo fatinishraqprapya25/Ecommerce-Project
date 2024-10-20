@@ -3,7 +3,7 @@ const { z } = require("zod");
 const userValidations = {};
 
 userValidations.userRegistrationValidationSchema = z.object({
-    body: {
+    body: z.object({
         firstName: z.string({
             required_error: "First name is required",
         }).min(1, "First name cannot be empty"),
@@ -19,8 +19,9 @@ userValidations.userRegistrationValidationSchema = z.object({
         password: z.string({
             required_error: "Password is required",
         }).min(6, "Password must be at least 6 characters"),
-    }
+    }),
 });
+
 
 userValidations.loginValidationSchema = z.object({
     body: z.object({
