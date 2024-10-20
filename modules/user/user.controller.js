@@ -56,7 +56,6 @@ userController.login = async (req, res) => {
     }
 };
 
-
 userController.disableUser = async (req, res) => {
     try {
         const userId = req.params.id;
