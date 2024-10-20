@@ -21,6 +21,33 @@ userController.createUser = async (req, res) => {
     }
 };
 
+userController.login = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const { token, user } = await userServices.login(email, password);
+
+        sendResponse(res, 200, {
+            success: true,
+            message: "Login successful",
+            token,
+            data: {
+                id: user._id,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                role: user.role
+            }
+        });
+    } catch (err) {
+        sendResponse(res, 401, {
+            success: false,
+            message: "Login failed",
+            error: err.message
+        });
+    }
+};
+
+
 userController.disableUser = async (req, res) => {
     try {
         const userId = req.params.id;
