@@ -7,5 +7,8 @@ const checkAdmin = require("../../middlewares/checkAdmin");
 const adminRoute = Router();
 
 adminRoute.post("/", checkAdmin, validateRequest(adminValidations.createAdminValidation), adminController.createAdmin);
+adminRoute.get("/", checkAdmin, adminController.getAllAdmins);
+adminRoute.get("/:id", checkAdmin, adminController.findAdminById);
+adminRoute.delete("/:id", checkAdmin, adminController.removeAdmin);
 
 module.exports = adminRoute;
