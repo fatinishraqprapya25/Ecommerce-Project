@@ -86,4 +86,34 @@ adminController.removeAdmin = async (req, res) => {
     }
 };
 
+adminController.disableUser = async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const disabledUser = await userServices.disableUser(userId);
+        if (!disabledUser) {
+            return sendResponse(res, 404, { success: false, message: "User not found" });
+        }
+        sendResponse(res, 200, {
+            success: true,
+            message: "User disabled successfully",
+            data: disabledUser
+        });
+    } catch (err) {
+        sendResponse(res, 500, { success: false, message: "Error disabling user", error: err.message });
+    }
+};
+
+adminController.enableUser = async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const enabledUser = await userServices.enableUser(userId);
+        if (!enabledUser) {
+            return sendResponse(res, 404, { success: false, message: "User not found" });
+        }
+        sendResponse(res, 200, { success: true, message: "User enabled successfully" });
+    } catch (err) {
+        sendResponse(res, 500, { success: false, message: "Error enabling user", error: err.message });
+    }
+};
+
 module.exports = adminController;

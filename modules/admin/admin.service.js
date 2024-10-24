@@ -24,4 +24,13 @@ adminService.removeAdmin = async (adminId) => {
     return await User.findByIdAndUpdate(adminId, { role: "user" }, { new: true, runValidators: true });
 };
 
+adminService.disableUser = async (userId) => {
+    return await User.findByIdAndUpdate(userId, { status: "disabled" });
+}
+
+adminService.enableUser = async (userId) => {
+    return await User.findByIdAndUpdate(userId, { status: "active" });
+}
+
+
 module.exports = adminService;

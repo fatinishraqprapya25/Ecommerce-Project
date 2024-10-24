@@ -25,14 +25,6 @@ userServices.login = async ({ email, password }) => {
     return { token, user };
 }
 
-userServices.disableUser = async (userId) => {
-    return await User.findByIdAndUpdate(userId, { status: "disabled" });
-}
-
-userServices.enableUser = async (userId) => {
-    return await User.findByIdAndUpdate(userId, { status: "active" });
-}
-
 userServices.updateUserInfo = async (userId, updateData) => {
     return await User.findByIdAndUpdate(userId, updateData, { new: true, runValidators: true });
 }
