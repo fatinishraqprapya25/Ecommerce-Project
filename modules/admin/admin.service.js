@@ -6,7 +6,9 @@ adminService.createAdmin = async (email) => {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
         existingUser.role = "admin";
-        return await existingUser.save();
+        const result = await existingUser.save();
+        delete result?.password;
+        return result;
     } else {
         throw new Error("he must be a user!")
     }
