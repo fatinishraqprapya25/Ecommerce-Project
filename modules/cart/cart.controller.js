@@ -1,24 +1,40 @@
 const cartService = require('./cart.service');
+const sendResponse = require("../../utils/sendResponse");
 
 const cartController = {};
 
 cartController.createOrUpdateCart = async (req, res) => {
-    const userId = req.user.id;
-    const productData = req.body;
+    try {
+        const userId = req.user.id;
+        const cartDetails = req.body;
+        let cart = await cartService.getCartByUserId(userId);
+        if (cart) {
+            const productExists = cart.products.some(
+                item => item.productId.equals(cartDetails.productId)
+            );
+            if (productExists) {
+                return sendResponse(res, 400, {
+                    success: false,
+                    message: "Product already exists in the cart",
+                    error: "Duplicate product"
+                });
+            }
+        }
 
-    const cart = await cartService.createOrUpdateCart(userId, productData);
-    if (!cart) {
-        return sendResponse(res, 400, {
+        const updatedCart = await cartService.createOrUpdateCart(userId, cartDetails);
+
+        return sendResponse(res, 200, {
+            success: true,
+            message: "Product added successfully",
+            data: updatedCart
+        });
+    } catch (error) {
+        return sendResponse(res, 500, {
             success: false,
             message: "Failed to create or update cart",
-            error: "Cart operation failed"
+            error: error.message
         });
     }
-    return sendResponse(res, 200, {
-        success: true,
-        message: "Product added successfully",
-        data: cart
-    });
 };
 
 cartController.getCartByUserId = async (req, res) => {
