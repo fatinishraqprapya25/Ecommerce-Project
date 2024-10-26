@@ -12,17 +12,24 @@ productValidations.createSchema = z.object({
         category: z.enum(['Electronics', 'Clothing', 'Books', 'Accessories', 'Home Appliances', 'Others'], {
             required_error: "Category is required"
         }),
-        price: z.number()
-            .min(0, "Price must be a non-negative number"),
-        discount: z.number()
-            .min(0, "Discount must be at least 0%")
-            .max(100, "Discount cannot exceed 100%"),
-        stock: z.number()
-            .min(0, "Stock must be a non-negative number")
-            .default(0),
+        price: z.string()
+            .refine(value => !isNaN(Number(value)) && Number(value) >= 0, {
+                message: "Price must be a non-negative number",
+            }),
+        discount: z.string()
+            .optional()
+            .refine(value => !value || (!isNaN(Number(value)) && Number(value) >= 0), {
+                message: "Discount must be a non-negative number or omitted",
+            }),
+        stock: z.string()
+            .refine(value => !isNaN(Number(value)) && Number(value) >= 0, {
+                message: "Stock must be a non-negative number",
+            }),
         brand: z.string()
-            .max(50, "Brand name must be at most 50 characters long")
+            .max(50, "Brand name must be at most 50 characters long"),
+        isFeatured: z.boolean().optional(),
     })
 });
+
 
 module.exports = productValidations;

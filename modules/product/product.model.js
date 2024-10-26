@@ -19,27 +19,15 @@ const productSchema = new mongoose.Schema({
         enum: ['Electronics', 'Clothing', 'Books', 'Accessories', 'Home Appliances', 'Others']
     },
     price: {
-        type: Number,
+        type: String,
         required: [true, 'Price is required'],
-        min: 0
     },
     discount: {
-        type: Number,
-        default: 0,
-        min: 0,
-        max: 100,
-        validate: {
-            validator: function (value) {
-                return value <= 100;
-            },
-            message: 'Discount cannot exceed 100%'
-        }
+        type: String,
     },
     stock: {
-        type: Number,
+        type: String,
         required: true,
-        min: 0,
-        default: 0
     },
     brand: {
         type: String,
