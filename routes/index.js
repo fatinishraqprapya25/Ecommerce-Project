@@ -3,6 +3,7 @@ const publicUser = require("../modules/user/user.route");
 const adminRoute = require("../modules/admin/admin.route");
 const productRouter = require("../modules/product/product.route");
 const cartRouter = require("../modules/cart/cart.route");
+const orderRouter = require("../modules/order/order.route");
 
 const appRouter = Router();
 
@@ -12,6 +13,7 @@ const routes = [
     { path: "/admin", router: adminRoute },
     { path: "/products", router: productRouter },
     { path: "/cart", router: cartRouter },
+    { path: "/checkout", router: orderRouter },
 ]
 
 routes.forEach(route => appRouter.use(route.path, route.router));
