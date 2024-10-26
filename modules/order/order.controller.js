@@ -1,5 +1,5 @@
 const orderService = require('./order.service');
-const sendResponse = require('../utils/sendResponse');
+const sendResponse = require('../../utils/sendResponse');
 
 const orderController = {};
 
