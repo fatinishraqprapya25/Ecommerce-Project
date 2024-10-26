@@ -3,6 +3,7 @@ const checkLogin = require("../../middlewares/checkLogin");
 const orderController = require("./order.controller");
 
 const orderRouter = Router();
+
 orderRouter.post("/", checkLogin, orderController.createOrder);
 orderRouter.get("/", checkLogin, orderController.getOrdersByUser);
 orderRouter.get("/:orderId", checkLogin, orderController.getOrderById);
