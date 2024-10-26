@@ -24,8 +24,8 @@ orderService.createOrder = async (userId, orderData) => {
 
 }
 
-orderService.deleteOrder = async (orderId) => {
-    return await Order.findByIdAndDelete(orderId);
+orderService.cancelOrder = async (orderId) => {
+    return await Order.findByIdAndUpdate(orderId, { status: "cancelled" }, { new: true, runValidators: true });
 };
 
 orderService.getOrdersByUser = async (userId) => {
