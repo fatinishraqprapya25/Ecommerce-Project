@@ -12,7 +12,7 @@ productService.getProducts = async (search, options = {}) => {
 
     let query;
     if (search) {
-        const regex = new RegExp(search, 'i'); // 'i' for case-insensitive
+        const regex = new RegExp(search, 'i');
         query = {
             $or: [
                 { name: regex },
