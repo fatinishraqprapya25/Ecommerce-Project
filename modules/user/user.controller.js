@@ -2,7 +2,7 @@ const path = require("path");
 const bcrypt = require("bcrypt");
 const userServices = require("./user.service");
 const sendResponse = require("../../utils/sendResponse");
-const config = require("../../config"); dfdf
+const config = require("../../config");
 
 const userController = {};
 
