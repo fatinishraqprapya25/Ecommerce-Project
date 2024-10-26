@@ -8,7 +8,7 @@ const productValidations = require("./product.validations");
 const productRouter = Router();
 
 // admin requests
-productRouter.post("/", upload("products").array("images", 3), varifyAdmin, validateRequest(productValidations.createSchema), productController.createProduct);
+productRouter.post("/", varifyAdmin, upload("products").array("images", 3), validateRequest(productValidations.createSchema), productController.createProduct);
 productRouter.patch("/:id", varifyAdmin, productController.updateProduct);
 productRouter.delete("/:id", varifyAdmin, productController.deleteProduct);
 

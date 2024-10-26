@@ -1,11 +1,21 @@
 const productService = require('./product.service');
 const sendResponse = require('../../utils/sendResponse');
+const path = require("path");
 
 const productController = {};
 
 productController.createProduct = async (req, res) => {
     try {
-        const product = await productService.createProduct(req.body);
+        const productDetails = req.body;
+        const images = [];
+        req.files.map(file => {
+            let filePath = path.join(__dirname, "../../", file.path);
+            images.push({ source: filePath });
+        });
+
+        productDetails.images = images;
+
+        const product = await productService.createProduct(productDetails);
         sendResponse(res, 201, {
             success: true,
             message: "Product created successfully!",
