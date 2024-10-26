@@ -1,4 +1,5 @@
 const Cart = require('./cart.model');
+const Product = require("../product/product.model");
 
 const cartService = {};
 
@@ -15,6 +16,7 @@ cartService.getCartByUserId = async (userId) => {
     const cart = await Cart.findOne({ userId }).populate('products.productId');
     return cart;
 };
+
 
 cartService.updateProductQuantity = async (userId, productId, quantity) => {
     const cart = await Cart.findOneAndUpdate(
