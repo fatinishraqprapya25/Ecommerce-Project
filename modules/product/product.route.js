@@ -4,11 +4,12 @@ const varifyAdmin = require("../../middlewares/checkAdmin");
 const upload = require("../../utils/upload");
 const validateRequest = require("../../middlewares/validateRequest");
 const productValidations = require("./product.validations");
+const productMiddlewares = require("./product.middlewares");
 
 const productRouter = Router();
 
 // admin requests
-productRouter.post("/", varifyAdmin, upload("products").array("images", 3), validateRequest(productValidations.createSchema), productController.createProduct);
+productRouter.post("/", varifyAdmin, upload("products").array("images", 3), validateRequest(productValidations.createSchema, productMiddlewares.deteteUploadedPhotoIfValidationFailed), productController.createProduct);
 productRouter.patch("/:id", varifyAdmin, productController.updateProduct);
 productRouter.delete("/:id", varifyAdmin, productController.deleteProduct);
 
