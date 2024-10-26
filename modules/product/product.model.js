@@ -48,7 +48,7 @@ const productSchema = new mongoose.Schema({
     },
     images: [
         {
-            url: { type: String, required: true },
+            source: { type: String, required: true },
             altText: { type: String }
         }
     ],
@@ -62,7 +62,6 @@ const productSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    reviews: [reviewSchema],
     isFeatured: {
         type: Boolean,
         default: false
