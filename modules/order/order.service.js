@@ -25,4 +25,16 @@ orderService.createOrder = async (userId, orderData) => {
 
 }
 
+orderService.deleteOrder = async (orderId) => {
+    return await Order.findByIdAndDelete(orderId);
+};
+
+orderService.getOrdersByUser = async (userId) => {
+    return await Order.find({ userId }).populate('products.productId');
+};
+
+orderService.getOrderById = async (orderId) => {
+    return await Order.findById(orderId).populate('products.productId');
+};
+
 module.exports = orderService;
