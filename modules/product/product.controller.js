@@ -32,7 +32,7 @@ productController.createProduct = async (req, res) => {
 
 productController.getProducts = async (req, res) => {
     try {
-        const filters = req.query;
+        const search = req.query.search || "";
         const options = {
             page: parseInt(req.query.page) || 1,
             limit: parseInt(req.query.limit) || 10,
@@ -40,7 +40,7 @@ productController.getProducts = async (req, res) => {
             sortOrder: req.query.sortOrder || 'desc',
         };
 
-        const result = await productService.getProducts(filters, options);
+        const result = await productService.getProducts(search, options);
         sendResponse(res, 200, {
             success: true,
             message: "Products retrieved successfully",

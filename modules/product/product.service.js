@@ -6,18 +6,32 @@ productService.createProduct = async (productData) => {
     return await Product.create(productData);
 };
 
-productService.getProducts = async (filters = {}, options = {}) => {
+productService.getProducts = async (search, options = {}) => {
     const { page = 1, limit = 10, sortBy = 'createdAt', sortOrder = 'desc' } = options;
     const skip = (page - 1) * limit;
 
-    const products = await Product.find(filters)
+    let query;
+    if (search) {
+        const regex = new RegExp(search, 'i'); // 'i' for case-insensitive
+        query = {
+            $or: [
+                { name: regex },
+                { description: regex },
+                { category: regex }
+            ]
+        };
+    } else {
+        query = {};
+    }
+
+    const products = await Product.find(query)
         .sort({ [sortBy]: sortOrder === 'asc' ? 1 : -1 })
         .skip(skip)
         .limit(limit);
 
-    const total = await Product.countDocuments(filters);
+    const total = await Product.countDocuments(query);
 
-    return { products, total, page, limit };
+    return { total, page, limit, products };
 };
 
 productService.getProductById = async (id) => {
