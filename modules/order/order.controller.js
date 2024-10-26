@@ -27,6 +27,7 @@ orderController.getOrdersByUser = async (req, res) => {
     const userId = req.user.id;
     try {
         const orders = await orderService.getOrdersByUser(userId);
+        console.log(orders)
         sendResponse(res, 200, {
             success: true,
             message: 'Orders fetched successfully!',
@@ -68,7 +69,7 @@ orderController.getOrderById = async (req, res) => {
 orderController.cancelOrder = async (req, res) => {
     const { orderId } = req.params;
     try {
-        const order = await orderService.deleteOrder(orderId);
+        const order = await orderService.cancelOrder(orderId);
         if (!order) {
             return sendResponse(res, 404, {
                 success: false,
