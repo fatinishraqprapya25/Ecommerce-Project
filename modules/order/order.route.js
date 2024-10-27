@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const checkLogin = require("../../middlewares/checkLogin");
+const validateRequest = require("../../middlewares/validateRequest");
 const orderController = require("./order.controller");
 const orderValidatdions = require("./order.validation");
 
