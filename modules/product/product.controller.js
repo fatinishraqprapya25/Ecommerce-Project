@@ -78,6 +78,35 @@ productController.getProductById = async (req, res) => {
     }
 };
 
+productController.getProductsByCategory = async (req, res) => {
+    try {
+        const options = req.query;
+        const products = await productService.getProductByCategory(req.params.category, options);
+
+        if (!products || products.length === 0) {
+            return sendResponse(res, 404, {
+                success: false,
+                message: "No products found in this category"
+            });
+        }
+
+        return sendResponse(res, 200, {
+            success: true,
+            message: "Products retrieved successfully",
+            data: products
+        });
+    } catch (error) {
+        console.error("Error retrieving products:", error);
+
+        return sendResponse(res, 500, {
+            success: false,
+            message: "Error retrieving products",
+            error: error.message
+        });
+    }
+};
+
+
 productController.updateProduct = async (req, res) => {
     try {
         const product = await productService.updateProduct(req.params.id, req.body);
