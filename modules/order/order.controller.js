@@ -90,7 +90,7 @@ orderController.cancelOrder = async (req, res) => {
     }
 };
 
-adminController.changeOrderStatus = async (req, res) => {
+orderController.changeOrderStatus = async (req, res) => {
     const { orderId, status } = req.body;
     try {
         const updatedOrder = await orderService.changeStatus(orderId, status);
@@ -116,7 +116,7 @@ adminController.changeOrderStatus = async (req, res) => {
     }
 };
 
-adminController.getAllOrders = async (req, res) => {
+orderController.getAllOrders = async (req, res) => {
     try {
         const query = req.query;
         const orders = await orderService.getAllOrders(query);

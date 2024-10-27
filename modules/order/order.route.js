@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const checkLogin = require("../../middlewares/checkLogin");
+const checkAdmin = require("../../middlewares/checkAdmin");
 const validateRequest = require("../../middlewares/validateRequest");
 const orderController = require("./order.controller");
 const orderValidatdions = require("./order.validation");
@@ -10,7 +11,7 @@ orderRouter.post("/", validateRequest(orderValidatdions.createOrder), checkLogin
 orderRouter.get("/", checkLogin, orderController.getOrdersByUser);
 orderRouter.get("/:orderId", checkLogin, orderController.getOrderById);
 orderRouter.patch("/:orderId", checkLogin, orderController.cancelOrder);
-adminRoute.post("/status", checkAdmin, adminController.changeOrderStatus);
-adminRoute.get("/all", checkAdmin, adminController.getAllOrders);
+orderRouter.post("/status", checkAdmin, orderController.changeOrderStatus);
+orderRouter.get("/all", checkAdmin, orderController.getAllOrders);
 
 module.exports = orderRouter;
