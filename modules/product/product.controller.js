@@ -33,11 +33,14 @@ productController.createProduct = async (req, res) => {
 productController.getProducts = async (req, res) => {
     try {
         const search = req.query.search || "";
+        const maxPrice = req.query.maxPrice || undefined;
+        const minPrice = req.query.minPrice || undefined;
         const options = {
             page: parseInt(req.query.page) || 1,
             limit: parseInt(req.query.limit) || 10,
             sortBy: req.query.sortBy || 'createdAt',
             sortOrder: req.query.sortOrder || 'desc',
+            maxPrice, minPrice
         };
 
         const result = await productService.getProducts(search, options);

@@ -7,7 +7,7 @@ productService.createProduct = async (productData) => {
 };
 
 productService.getProducts = async (search, options = {}) => {
-    const { page = 1, limit = 10, sortBy = 'createdAt', sortOrder = 'desc' } = options;
+    const { page = 1, limit = 10, sortBy = 'createdAt', sortOrder = 'desc', maxPrice, minPrice } = options;
     const skip = (page - 1) * limit;
 
     let query;
@@ -22,6 +22,16 @@ productService.getProducts = async (search, options = {}) => {
         };
     } else {
         query = {};
+    }
+
+    if (maxPrice !== undefined || minPrice !== undefined) {
+        query.price = {};
+        if (maxPrice !== undefined) {
+            query.price.$lte = parseFloat(maxPrice);
+        }
+        if (minPrice !== undefined) {
+            query.price.$gte = minPrice;
+        }
     }
 
     const products = await Product.find(query)
