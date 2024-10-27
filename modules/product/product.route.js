@@ -16,6 +16,5 @@ productRouter.delete("/:id", varifyAdmin, productController.deleteProduct);
 // user or non-user requests
 productRouter.get("/", productController.getProducts);
 productRouter.get("/:id", productController.getProductById);
-productRouter.get("/category/:category", productController.getProductsByCategory);
 
 module.exports = productRouter;
