@@ -143,4 +143,32 @@ adminController.changeOrderStatus = async (req, res) => {
     }
 };
 
+adminController.getAllOrders = async (req, res) => {
+    try {
+        const query = req.query;
+        const orders = await orderService.getAllOrders(query);
+
+        if (!orders || orders.length === 0) {
+            return sendResponse(res, 404, {
+                success: false,
+                message: "No orders found",
+            });
+        }
+
+        return sendResponse(res, 200, {
+            success: true,
+            message: "Orders retrieved successfully",
+            data: orders,
+        });
+    } catch (error) {
+        return sendResponse(res, 500, {
+            success: false,
+            message: "Failed retrieving orders",
+            error: error.message,
+        });
+    }
+};
+
+
+
 module.exports = adminController;

@@ -36,8 +36,14 @@ orderService.getOrderById = async (orderId) => {
     return await Order.findById(orderId).populate('products.productId');
 };
 
+// functionlities only for admin
 orderService.changeStatus = async (orderId, status) => {
     return await Order.findByIdAndUpdate(orderId, { status: status });
+}
+
+orderService.getAllOrders = async (query = {}) => {
+    const orders = await Order.find(query);
+    return orders;
 }
 
 module.exports = orderService;
