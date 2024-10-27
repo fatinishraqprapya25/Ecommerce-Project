@@ -14,7 +14,4 @@ adminRoute.delete("/:id", checkAdmin, adminController.removeAdmin);
 adminRoute.post("/enable/:id", checkAdmin, adminController.enableUser);
 adminRoute.post("/disable/:id", checkAdmin, adminController.disableUser);
 
-adminRoute.post("/order/status", checkAdmin, adminController.changeOrderStatus);
-adminRoute.get("/orders/all", checkAdmin, adminController.getAllOrders);
-
 module.exports = adminRoute;
