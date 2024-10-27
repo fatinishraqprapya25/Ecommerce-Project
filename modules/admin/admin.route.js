@@ -10,7 +10,10 @@ adminRoute.post("/", checkAdmin, validateRequest(adminValidations.createAdminVal
 adminRoute.get("/", checkAdmin, adminController.getAllAdmins);
 adminRoute.get("/:id", checkAdmin, adminController.findAdminById);
 adminRoute.delete("/:id", checkAdmin, adminController.removeAdmin);
+
 adminRoute.post("/enable/:id", checkAdmin, adminController.enableUser);
 adminRoute.post("/disable/:id", checkAdmin, adminController.disableUser);
+
+adminRoute.post("/order/status", checkAdmin, adminController.changeOrderStatus);
 
 module.exports = adminRoute;
