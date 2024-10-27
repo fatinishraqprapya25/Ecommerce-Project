@@ -1,5 +1,6 @@
 const sendResponse = require("../../utils/sendResponse");
 const adminService = require("./admin.service");
+const orderService = require("../order/order.service");
 
 const adminController = {};
 
@@ -113,6 +114,32 @@ adminController.enableUser = async (req, res) => {
         sendResponse(res, 200, { success: true, message: "User enabled successfully", data: enabledUser });
     } catch (err) {
         sendResponse(res, 500, { success: false, message: "Error enabling user", error: err.message });
+    }
+};
+
+adminController.changeOrderStatus = async (req, res) => {
+    const { orderId, status } = req.body;
+    try {
+        const updatedOrder = await orderService.changeStatus(orderId, status);
+
+        if (!updatedOrder) {
+            return sendResponse(res, 404, {
+                success: false,
+                message: "Order not found",
+            });
+        }
+
+        return sendResponse(res, 200, {
+            success: true,
+            message: "Order status updated successfully",
+            data: updatedOrder,
+        });
+    } catch (error) {
+        return sendResponse(res, 500, {
+            success: false,
+            message: "failed changing order status",
+            error: error.message
+        });
     }
 };
 

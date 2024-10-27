@@ -36,4 +36,8 @@ orderService.getOrderById = async (orderId) => {
     return await Order.findById(orderId).populate('products.productId');
 };
 
+orderService.changeStatus = async (orderId, status) => {
+    return await Order.findByIdAndUpdate(orderId, { status: status });
+}
+
 module.exports = orderService;
