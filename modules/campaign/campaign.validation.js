@@ -13,8 +13,7 @@ campaignValidations.createCampaign = z.object({
                 return !isNaN(numValue) && numValue >= 0 && numValue <= 100;
             }, {
                 message: "Discount percentage must be a number between 0 and 100.",
-            }),
-        images: z.array(z.string().nonempty("Image URL is required")).nonempty("At least one image is required"),
+            })
     })
 });
 

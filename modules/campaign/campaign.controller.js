@@ -1,5 +1,6 @@
 const campaignServices = require('./campaign.service');
 const sendResponse = require('../../utils/sendResponse');
+const path = require("path");
 
 const campaignController = {};
 
@@ -7,6 +8,24 @@ campaignController.createCampaign = async (req, res) => {
     try {
         const campaignDetails = req.body;
         campaignDetails.isActive = true;
+
+        const files = req.files || null;
+        const images = [];
+
+        if (!files) {
+            sendResponse(res, 500, {
+                success: false,
+                message: "provide image for campaign"
+            });
+        }
+
+        files.map(file => {
+            const filePath = file.path;
+            const fullFilepath = path.join(__dirname, "../../", filePath);
+            images.push({ source: fullFilepath });
+        });
+
+        campaignDetails.images = images;
 
         const campaign = await campaignServices.createCampaign(campaignDetails);
         sendResponse(res, 201, {
