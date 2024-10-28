@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const campaignSchema = new mongoose.Schema({
+    type: {
+        type: String,
+        enum: ["banner", "campaign"],
+        default: "banner"
+    },
     title: {
         type: String,
         required: true,
@@ -15,10 +20,12 @@ const campaignSchema = new mongoose.Schema({
         min: 0,
         max: 100,
     },
-    image: {
-        type: String,
-        required: true,
-    },
+    image: [
+        {
+            type: String,
+            required: true,
+        }
+    ],
     isActive: {
         type: Boolean,
         default: true,
