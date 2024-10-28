@@ -9,5 +9,9 @@ const campaignMiddlewares = require("./campaign.middlewares");
 const campaignRouter = Router();
 
 campaignRouter.post("/", checkAdmin, upload("campaigns").array("images", 3), validateRequest(campaignValidations.createCampaign, campaignMiddlewares.deteteUploadedPhotoIfValidationFailed), campaignController.createCampaign);
+campaignRouter.get("/", checkAdmin, campaignController.getAllCampaigns);
+campaignRouter.get("/:id", checkAdmin, campaignController.getCampaignById);
+campaignRouter.get("/:id", checkAdmin, campaignController.getCampaignById);
+campaignRouter.patch("/:id", checkAdmin, campaignController.updateCampaign);
 
 module.exports = campaignRouter;
