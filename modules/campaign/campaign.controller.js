@@ -9,11 +9,11 @@ campaignController.createCampaign = async (req, res) => {
         const campaignDetails = req.body;
         campaignDetails.isActive = true;
 
-        const files = req.files || null;
+        const files = req.files || [];
         const images = [];
 
-        if (!files) {
-            sendResponse(res, 500, {
+        if (files.length === 0) {
+            return sendResponse(res, 500, {
                 success: false,
                 message: "provide image for campaign"
             });
