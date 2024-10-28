@@ -24,20 +24,20 @@ wishlistController.getWishlistByUser = async (req, res) => {
 wishlistController.addProductToWishlist = async (req, res) => {
     const userId = req.user.id;
     const { productId } = req.body;
+    let wishlist = await wishlistService.getWishlistByUser(userId);
+    if (wishlist) {
+        const productExists = wishlist.products.some(item =>
+            item.product.equals(productId)
+        );
 
-    const wishlist = await wishlistService.getWishlistByUser(userId);
-    const productExists = wishlist?.products.some(item =>
-        item.product.equals(productId)
-    );
-
-    if (productExists) {
-        return sendResponse(res, 400, {
-            success: false,
-            message: 'Product already exists in the wishlist',
-            error: 'Duplicate product'
-        });
+        if (productExists) {
+            return sendResponse(res, 400, {
+                success: false,
+                message: 'Product already exists in the wishlist',
+                error: 'Duplicate product'
+            });
+        }
     }
-
     const updatedWishlist = await wishlistService.addProductToWishlist(userId, productId);
     return sendResponse(res, 200, {
         success: true,
@@ -45,6 +45,7 @@ wishlistController.addProductToWishlist = async (req, res) => {
         data: updatedWishlist
     });
 };
+
 
 wishlistController.removeProductFromWishlist = async (req, res) => {
     const userId = req.user.id;

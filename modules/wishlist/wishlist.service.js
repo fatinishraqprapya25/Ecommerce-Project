@@ -3,7 +3,8 @@ const Wishlist = require('./wishlist.model');
 const wishlistService = {};
 
 wishlistService.getWishlistByUser = async (userId) => {
-    await Wishlist.findOne({ user: userId }).populate('products.product');
+    const result = await Wishlist.findOne({ user: userId }).populate('products.product');
+    return result;
 }
 
 wishlistService.addProductToWishlist = async (userId, productId) => {
@@ -15,15 +16,17 @@ wishlistService.addProductToWishlist = async (userId, productId) => {
 }
 
 wishlistService.removeProductFromWishlist = async (userId, productId) => {
-    await Wishlist.findOneAndUpdate(
-        { user: Types.ObjectId(userId) },
+    const result = Wishlist.findOneAndUpdate(
+        { user: userId },
         { $pull: { products: { product: productId } } },
         { new: true }
     );
+    return result;
 }
 
 wishlistService.deleteWishlistByUser = async (userId) => {
-    await Wishlist.findOneAndDelete({ user: userId });
+    const result = Wishlist.findOneAndDelete({ user: userId });
+    return result;
 }
 
 module.exports = wishlistService;
