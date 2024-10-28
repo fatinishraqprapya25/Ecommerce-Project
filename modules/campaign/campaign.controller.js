@@ -6,6 +6,7 @@ const campaignController = {};
 campaignController.createCampaign = async (req, res) => {
     try {
         const campaignDetails = req.body;
+        campaignDetails.isActive = true;
 
         const campaign = await campaignServices.createCampaign(campaignDetails);
         sendResponse(res, 201, {

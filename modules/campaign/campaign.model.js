@@ -25,7 +25,7 @@ const campaignSchema = new mongoose.Schema({
             message: 'Discount percentage must be a number between 0 and 100.',
         },
     },
-    image: [
+    images: [
         {
             type: String,
             required: true,
