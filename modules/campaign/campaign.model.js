@@ -15,10 +15,15 @@ const campaignSchema = new mongoose.Schema({
         required: true,
     },
     discountPercentage: {
-        type: Number,
+        type: String,
         required: true,
-        min: 0,
-        max: 100,
+        validate: {
+            validator: function (value) {
+                const numValue = Number(value);
+                return !isNaN(numValue) && numValue >= 0 && numValue <= 100;
+            },
+            message: 'Discount percentage must be a number between 0 and 100.',
+        },
     },
     image: [
         {
