@@ -29,10 +29,4 @@ campaignServices.updateCampaign = async (campaignId, updateData) => {
     return updatedCampaign;
 };
 
-campaignServices.disableCampaign = async (campaignId) => {
-    const deletedCampaign = await Campaign.findByIdAndUpdate(campaignId, { isActive: false }, { new: true, runValidators: true });
-    if (!deletedCampaign) throw new Error("Campaign not found");
-    return deletedCampaign;
-};
-
 module.exports = campaignServices;
