@@ -1,9 +1,9 @@
 const path = require("path");
 const deleteUploadedFile = require("../../utils/deleteUploadedFile");
 
-const productMiddlewares = {};
+const campaignMiddlewares = {};
 
-productMiddlewares.deteteUploadedPhotoIfValidationFailed = function (msg) {
+campaignMiddlewares.deteteUploadedPhotoIfValidationFailed = function (msg) {
     if (!msg.success) {
         if (msg.req.files) {
             msg.req.files.map(file => {
@@ -14,4 +14,4 @@ productMiddlewares.deteteUploadedPhotoIfValidationFailed = function (msg) {
     }
 }
 
-module.exports = productMiddlewares;
+module.exports = campaignMiddlewares;
