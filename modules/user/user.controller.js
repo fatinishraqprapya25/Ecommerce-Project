@@ -4,6 +4,7 @@ const userServices = require("./user.service");
 const sendResponse = require("../../utils/sendResponse");
 const config = require("../../config");
 const sendEmail = require("../../utils/sendEmail");
+const generateCode = require("../../utils/generateCode");
 
 const userController = {};
 
@@ -23,6 +24,7 @@ userController.register = async (req, res) => {
         if (userData.verificationCode) delete userData.
             verificationCode;
 
+        const code = generateCode(6);
         const sentCode = await sendEmail();
 
         if (sentCode) {
