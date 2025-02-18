@@ -10,7 +10,7 @@ const sendEmail = async (mailDetails) => {
                 pass: config.emailPass
             }
         });
-        const info = await transporter.sendEmail(mailDetails);
+        const info = await transporter.sendMail(mailDetails);
         return info;
     } catch (err) {
         throw new Error(err.message);
