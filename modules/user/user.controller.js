@@ -46,7 +46,7 @@ userController.register = async (req, res) => {
         const sentCode = await sendEmail(mailDetails);
 
         if (sentCode) {
-            userData.verificationCode = jwt.sign(code, config.jwtSecret, { expiresIn: "2m" });
+            userData.verificationCode = jwt.sign({ code }, config.jwtSecret, { expiresIn: "2m" });
             const newUser = await userServices.register(userData);
             return sendResponse(res, 201, {
                 success: true,
