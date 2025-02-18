@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const userServices = require("./user.service");
 const sendResponse = require("../../utils/sendResponse");
 const config = require("../../config");
+const sendEmail = require("../../utils/sendEmail");
 
 const userController = {};
 
@@ -17,17 +18,32 @@ userController.register = async (req, res) => {
             filePath = path.join(__dirname, "../../", fileName);
         }
         userData.profile = filePath;
-        const newUser = await userServices.register(userData);
+
+        if (userData.isVerified) delete userData.isVerified;
+        if (userData.verificationCode) delete userData.
+            verificationCode;
+
+        const sentCode = await sendEmail();
+
+        if (sentCode) {
+            const newUser = await userServices.register(userData);
+            return sendResponse(res, 201, {
+                success: true,
+                message: "User registered successfully",
+                data: newUser
+            });
+        }
+
         sendResponse(res, 201, {
-            success: true,
-            message: "User registered successfully",
-            data: newUser
+            success: false,
+            message: "Error Occured sending verification code!",
         });
+
     } catch (err) {
         sendResponse(res, 400, {
             success: false,
             message: "Failed to register user",
-            error: err.message
+            error: err
         });
     }
 };
