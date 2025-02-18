@@ -1,5 +1,6 @@
 const path = require("path");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const userServices = require("./user.service");
 const sendResponse = require("../../utils/sendResponse");
 const config = require("../../config");
@@ -25,9 +26,27 @@ userController.register = async (req, res) => {
             verificationCode;
 
         const code = generateCode(6);
-        const sentCode = await sendEmail();
+        const mailDetails = {
+            from: config.email,
+            to: userData.email,
+            subject: "Verify Your Email",
+            html: `
+                <div style="font-family: Arial, sans-serif; text-align: center; padding: 20px; background-color: #f4f4f4;">
+                    <div style="max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
+                        <h2 style="color: #333; margin-bottom: 10px;">Email Verification</h2>
+                        <p style="font-size: 16px; color: #555; margin-bottom: 10px;">Hello,</p>
+                        <p style="font-size: 16px; color: #555; margin-bottom: 20px;">Use the following code to verify your email address:</p>
+                        <p style="font-size: 22px; font-weight: bold; color: #2d89ef; background: #eaf2ff; padding: 10px 20px; display: inline-block; border-radius: 5px;">${code}</p>
+                        <p style="font-size: 14px; color: #555; margin-top: 20px;">This code is valid for 10 minutes.</p>
+                        <p style="font-size: 14px; color: #888; margin-top: 20px;">If you didn’t request this, you can ignore this email.</p>
+                    </div>
+                </div>
+            `
+        };
+        const sentCode = await sendEmail(mailDetails);
 
         if (sentCode) {
+            userData.verificationCode = jwt.sign(code, config.jwtSecret, { expiresIn: "2m" });
             const newUser = await userServices.register(userData);
             return sendResponse(res, 201, {
                 success: true,

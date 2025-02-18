@@ -33,7 +33,10 @@ const userSchema = new mongoose.Schema({
         type: String
     },
     verificationCode: String,
-    isRequired: Boolean,
+    isRequired: {
+        type: Boolean,
+        default: false
+    },
     address: {
         type: String
     }
