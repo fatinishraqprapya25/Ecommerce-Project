@@ -89,15 +89,15 @@ userController.verifyUser = async (req, res) => {
         const info = req.body;
         const user = await userController.verifyCode(info);
         if (user) {
-            user.verificationCode = "000000";
             user.isVerified = true;
             const result = await user.save();
-            if (user.password) delete user.password;
-            if (user.verificationCode) delete user.verificationCode;
+            const sanitizedUser = result.toObject();
+            if (sanitizedUser.password) delete sanitizedUser.password;
+            if (sanitizedUser.verificationCode) delete sanitizedUser.verificationCode;
             return sendResponse(res, 200, {
                 success: true,
                 message: "user verified successfully! please login...",
-                data: result
+                data: sanitizedUser
             });
         }
         sendResponse(res, 500, {
