@@ -157,6 +157,35 @@ userController.sendCodeToResetPass = async (req, res) => {
     }
 }
 
+userController.resetPass = async (req, res) => {
+    try {
+        const { code, email, password } = req.body;
+        const user = userController.checkCode({ code, email });
+        if (user) {
+            user.password = await bcrypt.hash(user.password, config.bcryptCircle);
+            user.verificationCode = "000000";
+            const result = await user.save();
+            if (result.password) delete user.password;
+            if (user.verificationCode) delete user.verificationCode;
+            return sendResponse(res, 200, {
+                success: true,
+                message: "password reset successfully! please login...",
+                data: result
+            });
+        }
+        sendResponse(res, 500, {
+            success: false,
+            message: "invalid code!",
+        })
+    } catch (err) {
+        sendResponse(res, 500, {
+            success: false,
+            message: err.message,
+            error: err
+        });
+    }
+}
+
 userController.login = async (req, res) => {
     try {
         const userInfo = req.body;
