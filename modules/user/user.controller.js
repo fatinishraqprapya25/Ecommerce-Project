@@ -84,7 +84,7 @@ userController.verifyCode = async ({ code, email }) => {
     }
 }
 
-userController.verifyUser = async function (req, res) {
+userController.verifyUser = async (req, res) => {
     try {
         const info = req.body;
         const user = await userController.verifyCode(info);
@@ -103,6 +103,47 @@ userController.verifyUser = async function (req, res) {
         sendResponse(res, 500, {
             success: false,
             message: "invalid code",
+        });
+    } catch (err) {
+        sendResponse(res, 500, {
+            success: false,
+            message: err.message,
+            error: err
+        });
+    }
+}
+
+userController.sendCodeToResetPass = async (req, res) => {
+    try {
+        const { email } = req.body;
+        const code = generateCode(6);
+        const mailInfo = {
+            from: config.email,
+            to: email,
+            subject: "Verify Your Email",
+            html: `
+                <div style="font-family: Arial, sans-serif; text-align: center; padding: 20px; background-color: #f4f4f4;">
+                    <div style="max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
+                        <h2 style="color: #333; margin-bottom: 10px;">Email Verification</h2>
+                        <p style="font-size: 16px; color: #555; margin-bottom: 10px;">Hello,</p>
+                        <p style="font-size: 16px; color: #555; margin-bottom: 20px;">Use the following code to verify your email address:</p>
+                        <p style="font-size: 22px; font-weight: bold; color: #2d89ef; background: #eaf2ff; padding: 10px 20px; display: inline-block; border-radius: 5px;">${code}</p>
+                        <p style="font-size: 14px; color: #555; margin-top: 20px;">This code is valid for 10 minutes.</p>
+                        <p style="font-size: 14px; color: #888; margin-top: 20px;">If you didn’t request this, you can ignore this email.</p>
+                    </div>
+                </div>
+            `
+        };
+        const sentCode = await sendEmail(mailInfo);
+        if (sentCode) {
+            return sendResponse(res, 200, {
+                success: true,
+                message: "a code sent to your email, verify it to reset password..."
+            });
+        }
+        sendResponse(res, 500, {
+            success: false,
+            message: "failed to send code to reset password!"
         });
     } catch (err) {
         sendResponse(res, 500, {
