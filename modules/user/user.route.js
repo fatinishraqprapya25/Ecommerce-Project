@@ -12,6 +12,7 @@ authRoute.post("/register", userMiddlewares.uploader, validateRequest(userValida
 
 authRoute.post("/verify", userController.verifyUser);
 authRoute.post("/sendcode", userController.sendCodeToResetPass);
+authRoute.post("/resetpass", userController.resetPass);
 // user login
 authRoute.post("/login", validateRequest(userValidations.loginValidationSchema), userController.login);
 
