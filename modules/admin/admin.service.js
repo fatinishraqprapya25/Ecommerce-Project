@@ -12,8 +12,8 @@ adminService.getAllAdmins = async () => {
     return result;
 };
 
-adminService.findAdmin = async (details) => {
-    const result = await Admin.findOne(details);
+adminService.findAdmin = async (id) => {
+    const result = await Admin.findOneById(id);
     return result;
 };
 

@@ -6,8 +6,8 @@ const adminController = {};
 
 adminController.createAdmin = async (req, res) => {
     try {
-        const { email } = req.body;
-        const admin = await adminService.createAdmin(email);
+        const info = req.body;
+        const admin = await adminService.createAdmin(info);
         sendResponse(res, 201, {
             success: true,
             message: "Admin created successfully",
@@ -39,10 +39,10 @@ adminController.getAllAdmins = async (req, res) => {
     }
 };
 
-adminController.findAdminById = async (req, res) => {
+adminController.findAdmin = async (req, res) => {
     try {
         const adminId = req.params.id;
-        const admin = await adminService.findAdminById(adminId);
+        const admin = await adminService.findAdmin(adminId);
         if (!admin) {
             return sendResponse(res, 404, {
                 success: false,
