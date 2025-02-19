@@ -17,7 +17,7 @@ userServices.login = async ({ email, password }) => {
     if (!isPasswordValid) throw new Error("Invalid email or password");
 
     const token = jwt.sign(
-        { id: user._id, role: user.role },
+        { id: user._id },
         process.env.JWT_SECRET,
         { expiresIn: "1d" }
     );
