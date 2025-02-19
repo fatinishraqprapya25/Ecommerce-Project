@@ -136,6 +136,9 @@ userController.sendCodeToResetPass = async (req, res) => {
         };
         const sentCode = await sendEmail(mailInfo);
         if (sentCode) {
+            const user = await User.findOne({ email });
+            user.verificationCode = jwt.sign({ code }, config.jwtSecret, { expiresIn: "2m" });
+            await user.save();
             return sendResponse(res, 200, {
                 success: true,
                 message: "a code sent to your email, verify it to reset password..."
