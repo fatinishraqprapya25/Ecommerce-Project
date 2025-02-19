@@ -84,14 +84,16 @@ userController.verifyCode = async ({ code, email }) => {
     }
 }
 
-userController.verifyUser = async (req, res) => {
+userController.verifyUser = async function (req, res) {
     try {
         const info = req.body;
-        const user = await this.verifyCode(info);
+        const user = await userController.verifyCode(info);
         if (user) {
             user.verificationCode = "000000";
             user.isVerified = true;
             const result = await user.save();
+            if (user.password) delete user.password;
+            if (user.verificationCode) delete user.verificationCode;
             return sendResponse(res, 200, {
                 success: true,
                 message: "user verified successfully! please login...",
