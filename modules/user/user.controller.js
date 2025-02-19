@@ -75,9 +75,39 @@ userController.verifyCode = async ({ code, email }) => {
         const user = await User.findOne({ email });
         if (!user) throw new Error("Email is not registered yet!");
         const decoded = jwt.verify(user.verificationCode, config.jwtSecret);
-        return decoded.code === parseInt(code);
+        if (decoded.code === parseInt(code)) {
+            return user;
+        }
+        return false;
     } catch (err) {
         throw new Error(err.message);
+    }
+}
+
+userController.verifyUser = async (req, res) => {
+    try {
+        const info = req.body;
+        const user = await this.verifyCode(info);
+        if (user) {
+            user.verificationCode = "000000";
+            user.isVerified = true;
+            const result = await user.save();
+            return sendResponse(res, 200, {
+                success: true,
+                message: "user verified successfully! please login...",
+                data: result
+            });
+        }
+        sendResponse(res, 500, {
+            success: false,
+            message: "invalid code",
+        });
+    } catch (err) {
+        sendResponse(res, 500, {
+            success: false,
+            message: err.message,
+            error: err
+        });
     }
 }
 
