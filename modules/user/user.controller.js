@@ -6,6 +6,7 @@ const sendResponse = require("../../utils/sendResponse");
 const config = require("../../config");
 const sendEmail = require("../../utils/sendEmail");
 const generateCode = require("../../utils/generateCode");
+const User = require("./user.model");
 
 const userController = {};
 
@@ -68,6 +69,17 @@ userController.register = async (req, res) => {
         });
     }
 };
+
+userController.verifyCode = async ({ code, email }) => {
+    try {
+        const user = await User.findOne({ email });
+        if (!user) throw new Error("Email is not registered yet!");
+        const decoded = jwt.verify(user.verificationCode, config.jwtSecret);
+        return decoded.code === parseInt(code);
+    } catch (err) {
+        throw new Error(err.message);
+    }
+}
 
 userController.login = async (req, res) => {
     try {
