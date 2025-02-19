@@ -1,29 +1,25 @@
-const User = require("../user/user.model");
+const Admin = require("./admin.model");
 
 const adminService = {};
 
-adminService.createAdmin = async (email) => {
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-        existingUser.role = "admin";
-        const result = await existingUser.save();
-        delete result?.password;
-        return result;
-    } else {
-        throw new Error("he must be a user!")
-    }
+adminService.createAdmin = async (info) => {
+    const result = await Admin.create(info);
+    return result;
 };
 
 adminService.getAllAdmins = async () => {
-    return await User.find({ role: "admin" });
+    const result = await Admin.find({});
+    return result;
 };
 
-adminService.findAdminById = async (adminId) => {
-    return await User.findById(adminId);
+adminService.findAdmin = async (details) => {
+    const result = await Admin.findOne(details);
+    return result;
 };
 
 adminService.removeAdmin = async (adminId) => {
-    return await User.findByIdAndUpdate(adminId, { role: "user" }, { new: true, runValidators: true });
+    const result = await Admin.findByIdAndUpdate(adminId, { isDeleted: true }, { new: true });
+    return result;
 };
 
 adminService.disableUser = async (userId) => {

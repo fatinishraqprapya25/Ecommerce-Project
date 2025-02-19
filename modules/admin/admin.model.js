@@ -9,6 +9,10 @@ const adminSchema = new mongoose.Schema({
         type: mongoose.Types.mixed,
         required: true,
         default: "main_admin"
+    },
+    isDeleted: {
+        type: Boolean,
+        default: false
     }
 });
 
