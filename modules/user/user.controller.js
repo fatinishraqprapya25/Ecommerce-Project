@@ -162,7 +162,7 @@ userController.resetPass = async (req, res) => {
         const { code, email, password } = req.body;
         const user = userController.checkCode({ code, email });
         if (user) {
-            user.password = await bcrypt.hash(user.password, config.bcryptCircle);
+            user.password = await bcrypt.hash(password, config.bcryptCircle);
             user.verificationCode = "000000";
             const result = await user.save();
             if (result.password) delete user.password;
