@@ -6,9 +6,8 @@ const adminSchema = new mongoose.Schema({
         required: true
     },
     addedBy: {
-        type: mongoose.Types.mixed,
+        type: mongoose.Types.ObjectId,
         required: true,
-        default: "main_admin"
     },
     isDeleted: {
         type: Boolean,
@@ -16,6 +15,6 @@ const adminSchema = new mongoose.Schema({
     }
 });
 
-const Admin = mongoose.model(adminSchema);
+const Admin = mongoose.model("Admin", adminSchema);
 
 module.exports = Admin;
