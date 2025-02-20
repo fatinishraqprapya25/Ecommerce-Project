@@ -44,5 +44,33 @@ This is a full-featured eCommerce application built using **Express.js** and **M
    `npm run start // production`
    `npm run start:dev // development` 
 
+## 📌 API Endpoints
+**BaseUrl:** not published yet
 
+### 🔹 Authentication
+- **User Registration**  
+Method: **POST**
+Endpoint: **/auth/register**
+  **Body:**
+  ```json`
+  {
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@gmail.com",
+	"password": "jsdev@123",
+	"address": "Forkerhat, Rajarhat, Kurigram",
+	"profilePic": ""
+  }`
 
+After providing all of the informations if you hit the endpoint a **verfication code** will be sent to the provided email address. Here **address** & **profilePic** properties are optional. 
+
+- **User verification**
+Method: **POST**
+Endpoint: **/auth/verify**
+  **Body:**
+  ```json
+  {
+    "email": "john.doe@gmail.com",
+    "code": "656545"
+  }`
+After providing the right email address and the correct verification code in the request body, if you hit the endpoint user will be verified can can be logged in anytime.
