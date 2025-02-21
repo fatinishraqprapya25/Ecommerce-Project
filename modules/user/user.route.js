@@ -18,6 +18,6 @@ authRoute.post("/login", validateRequest(userValidations.loginValidationSchema),
 
 const userRoute = Router();
 // user info update
-userRoute.post("/", userMiddlewares.uploader, checkLogin, validateRequest(userValidations.updateUserValidationSchema), userController.updateUserInfo);
+userRoute.put("/", userMiddlewares.uploader, checkLogin, validateRequest(userValidations.updateUserValidationSchema), userController.updateUserInfo);
 
 module.exports = { authRoute, userRoute };
