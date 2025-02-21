@@ -14,7 +14,7 @@ userServices.register = async (userData) => {
 }
 
 userServices.login = async ({ email, password }) => {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email, isVerified: true });
     if (!user) throw new Error("Invalid email or password");
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
