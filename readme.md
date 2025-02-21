@@ -68,7 +68,7 @@ After providing all of the informations if you hit the endpoint a **verfication 
 Method: **POST**
 Endpoint: **/auth/verify**
   **Body:**
-  ```json
+  ```json`
   {
     "email": "john.doe@gmail.com",
     "code": "656545"
@@ -79,19 +79,18 @@ After providing the right email address and the correct verification code in the
 Method: **POST**
 Endpoint: **/auth/login**
   **Body:**
-  ```json
+  ```json`
   {
     "email": "john.doe@gmail.com",
     "password": "656545"
   }`
+
 After providing the right email address and the correct password, user will be logged in successfully and server will send a authorization token.
-  **Body:**
-  ```json
+  **Response:**
   {
     "success": "true",
     "message": "User logged in successfully!",
-	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0ODUxNDA5ODQsImlhdCI6MTQ4NTEzNzM4NCwiaXNzIjoiYWNtZS5jb20iLCJzdWIiOiIyOWFjMGMxOC0wYjRhLTQyY2YtODJmYy0wM2Q1NzAzMThhMWQiLCJhcHBsaWNhdGlvbklkIjoiNzkxMDM3MzQtOTdhYi00ZDFhLWFmMzctZTAwNmQwNWQyOTUyIiwicm9sZXMiOltdfQ.Mp0Pcwsz5VECK11Kf2ZZNF_SMKu5CgBeLN9ZOP04kZo
-"
+	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0ODUxNDA5ODQsImlhdCI6MTQ4NTEzNzM4NCwiaXNzIjoiYWNtZS5jb20iLCJzdWIiOiIyOWFjMGMxOC0wYjRhLTQyY2YtODJmYy0wM2Q1NzAzMThhMWQiLCJhcHB"
   }`
   
   - **Forget & Reset Password**
@@ -99,16 +98,16 @@ After providing the right email address and the correct password, user will be l
 Endpoint: **/auth/sendcode**
   If user forgets password, if you hit the endpoint with your email address, a verification code will sent to your email.
     **Body:**
-  ```json
+```json`
   {
     "email": "john.doe@gmail.com",
   }`
   
-To verify the code and reset password you have to hit the endpoint given below.
-  Method: **POST**
-  Endpoint: **/auth/resetpass**
-    **Body:**
-  ```json
+  To verify the code and reset password you have to hit the endpoint given below.
+   Method: **POST**
+Endpoint: **/auth/resetpass**
+    **Request body:**
+```json`
   {
     "email": "john.doe@gmail.com",
 	"code": "256565",
