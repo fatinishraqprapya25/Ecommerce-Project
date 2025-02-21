@@ -3,11 +3,13 @@ const mongoose = require("mongoose");
 const adminSchema = new mongoose.Schema({
     user: {
         type: mongoose.Types.ObjectId,
-        required: true
+        required: true,
+        ref: "User"
     },
     addedBy: {
         type: mongoose.Types.ObjectId,
         required: true,
+        ref: "Admin"
     },
     isDeleted: {
         type: Boolean,
