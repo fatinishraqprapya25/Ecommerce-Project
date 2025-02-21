@@ -74,3 +74,22 @@ Endpoint: **/auth/verify**
     "code": "656545"
   }`
 After providing the right email address and the correct verification code in the request body, if you hit the endpoint user will be verified can can be logged in anytime.
+
+- **User Login**
+Method: **POST**
+Endpoint: **/auth/login**
+  **Body:**
+  ```json
+  {
+    "email": "john.doe@gmail.com",
+    "password": "656545"
+  }`
+After providing the right email address and the correct password, user will be logged in successfully and server will send a authorization token.
+  **Body:**
+  ```json
+  {
+    "success": "true",
+    "message": "User logged in successfully!",
+	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0ODUxNDA5ODQsImlhdCI6MTQ4NTEzNzM4NCwiaXNzIjoiYWNtZS5jb20iLCJzdWIiOiIyOWFjMGMxOC0wYjRhLTQyY2YtODJmYy0wM2Q1NzAzMThhMWQiLCJhcHBsaWNhdGlvbklkIjoiNzkxMDM3MzQtOTdhYi00ZDFhLWFmMzctZTAwNmQwNWQyOTUyIiwicm9sZXMiOltdfQ.Mp0Pcwsz5VECK11Kf2ZZNF_SMKu5CgBeLN9ZOP04kZo
+"
+  }`
