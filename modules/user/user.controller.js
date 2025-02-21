@@ -21,6 +21,7 @@ userController.register = async (req, res) => {
                 message: "email is already registered!"
             });
         }
+        console.log(req.file);
         const fileName = req.file ? req.file.path : null;
         let filePath;
         if (fileName === null) {
