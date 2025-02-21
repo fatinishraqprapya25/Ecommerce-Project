@@ -23,7 +23,7 @@ function upload(uploadFolder, size, fileTypes) {
             if (extname && mimeType) {
                 cb(null, true);
             } else {
-                cb(new Error("Only JPEG, JPG, and PNG images are allowed!"));
+                cb(new Error("your file type is not supported here!"));
             }
         }
     });
