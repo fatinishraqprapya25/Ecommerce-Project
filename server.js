@@ -2,6 +2,7 @@ const app = require("./app");
 const config = require("./config");
 const mongoose = require("mongoose");
 const User = require("./modules/user/user.model");
+const Admin = require("./modules/admin/admin.model");
 
 let server;
 

@@ -1,6 +1,7 @@
 const sendResponse = require("../utils/sendResponse");
 const jwt = require("jsonwebtoken");
 const config = require("../config");
+const Admin = require("../modules/admin/admin.model");
 
 const checkAdmin = async (req, res, next) => {
     try {
@@ -9,7 +10,7 @@ const checkAdmin = async (req, res, next) => {
         if (!token) {
             return sendResponse(res, 403, {
                 success: false,
-                message: "Token not provided",
+                message: "access denied! token not provided.",
             });
         }
 
@@ -24,11 +25,11 @@ const checkAdmin = async (req, res, next) => {
         const authToken = parts[1];
 
         const user = jwt.verify(authToken, config.jwtSecret);
-
-        if (user.role !== "admin") {
-            return sendResponse(res, 403, {
+        const admin = await Admin.findById(user.id);
+        if (!admin) {
+            return sendResponse(res, 401, {
                 success: false,
-                message: "Access denied. Admins only.",
+                message: "access denied!"
             });
         }
 
