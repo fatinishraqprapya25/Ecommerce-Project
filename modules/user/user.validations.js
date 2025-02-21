@@ -22,6 +22,13 @@ userValidations.userRegistrationValidationSchema = z.object({
     }),
 });
 
+userValidations.verifyUser = z.object({
+    body: z.object({
+        code: z.string().min(6, "Code must be atleast 6 digits"),
+        email: z.string().email("Invalid Email address!")
+    })
+})
+
 userValidations.updateUserValidationSchema = z.object({
     body: z.object({
         firstName: z.string().min(1, "First name cannot be empty").optional(),
