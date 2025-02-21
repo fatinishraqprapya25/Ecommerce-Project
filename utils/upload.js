@@ -1,7 +1,7 @@
 const multer = require("multer");
 const path = require("path");
 
-function upload(uploadFolder) {
+function upload(uploadFolder, size, fileTypes) {
     const storage = multer.diskStorage({
         destination: (req, file, cb) => {
             cb(null, `uploads/${uploadFolder}`);
@@ -15,9 +15,8 @@ function upload(uploadFolder) {
 
     const uploader = multer({
         storage: storage,
-        limits: { fileSize: 10 * 1024 * 1024 },
+        limits: { fileSize: size * 1024 * 1024 },
         fileFilter: (req, file, cb) => {
-            const fileTypes = /jpeg|jpg|png/;
             const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
             const mimeType = fileTypes.test(file.mimetype);
 

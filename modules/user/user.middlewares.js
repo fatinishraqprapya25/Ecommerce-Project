@@ -5,9 +5,9 @@ const upload = require("../../utils/upload");
 const userMiddlewares = {};
 
 userMiddlewares.uploader = (req, res, next) => {
-    upload("profiles").single("avatar")(req, res, (err) => {
+    const fileTypes = /jpeg|jpg|png/;
+    upload("profiles", 10, fileTypes).single("avatar")(req, res, (err) => {
         if (err) {
-            console.log(err);
             req.file = null
         }
         next();
