@@ -13,6 +13,14 @@ const userController = {};
 userController.register = async (req, res) => {
     try {
         const userData = req.body;
+        const { email } = userData;
+        const emailRegistered = await User.findOne({ email });
+        if (emailRegistered) {
+            sendResponse(res, 500, {
+                success: false,
+                message: "email is already registered!"
+            });
+        }
         const fileName = req.file ? req.file.path : null;
         let filePath;
         if (fileName === null) {
