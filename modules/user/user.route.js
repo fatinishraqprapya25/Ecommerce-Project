@@ -11,7 +11,7 @@ const authRoute = Router();
 authRoute.post("/register", userMiddlewares.uploader, validateRequest(userValidations.userRegistrationValidationSchema, userMiddlewares.deteteUploadedPhotoIfValidationFailed), userController.register);
 
 authRoute.post("/verify", validateRequest(userValidations.verifyUser), userController.verifyUser);
-authRoute.post("/sendcode", userController.sendCodeToResetPass);
+authRoute.post("/sendcode", validateRequest(userValidations.sendCodeValidation), userController.sendCodeToResetPass);
 authRoute.post("/resetpass", userController.resetPass);
 // user login
 authRoute.post("/login", validateRequest(userValidations.loginValidationSchema), userController.login);
