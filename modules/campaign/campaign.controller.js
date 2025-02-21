@@ -82,6 +82,29 @@ campaignController.getCampaignById = async (req, res) => {
     }
 };
 
+campaignController.getAllActiveCampaigns = async (req, res) => {
+    try {
+        const campaigns = await campaignServices.getAllActiveCampaigns();
+        if (!campaigns) {
+            return sendResponse(res, 404, {
+                success: false,
+                message: "Campaign not found"
+            });
+        }
+        sendResponse(res, 200, {
+            success: true,
+            message: "active campaigns retrieved successfully!",
+            data: campaigns
+        });
+    } catch (error) {
+        sendResponse(res, 500, {
+            success: false,
+            message: "Error retrieving campaigns",
+            error: error.message
+        });
+    }
+}
+
 campaignController.updateCampaign = async (req, res) => {
     try {
         const updatedCampaign = await campaignServices.updateCampaign(req.params.id, req.body);

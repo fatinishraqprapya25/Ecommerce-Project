@@ -13,6 +13,11 @@ campaignServices.getAllCampaigns = async () => {
     return result;
 };
 
+campaignServices.getAllActiveCampaigns = async () => {
+    const result = await Campaign.find({ isActive: true });
+    return result;
+};
+
 campaignServices.getCampaignById = async (campaignId) => {
     const campaign = await Campaign.findById(campaignId);
     if (!campaign) throw new Error("Campaign not found");
