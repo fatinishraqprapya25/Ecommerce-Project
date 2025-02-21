@@ -196,3 +196,46 @@ This is a full-featured eCommerce application built using **Express.js** and **M
     -   Method: **POST**
     -   Endpoint: `/admin/enable/${userId}`
     -   Authentication: Requires a valid authorization token in the request header.
+
+
+### 🔹 Admin Panel
+-   **Get All Campaigns:**
+    -   Method: **GET**
+    -   Endpoint: `/campaign/`
+    -   Authentication: Requires a valid authorization token in the request header.
+
+-   **Get Active Campaigns:**
+    -   Method: **GET**
+    -   Endpoint: `/campaign/active`
+    -   Authentication: Requires a valid authorization token in the request header.
+
+-   **Get Campaign By ID:**
+    -   Method: **GET**
+    -   Endpoint: `/campaign/${id}`
+    -   Authentication: Requires a valid authorization token in the request header.
+
+
+-   **Create Campaign:**
+    -   Method: **POST**
+    -   Endpoint: `/campaign/`
+    -   Authentication: Requires a valid authorization token in the request header.
+
+    Request Body:
+    ```json 
+    {
+      "title": "Eid Special Offter",
+      "description": "eid sdfsdfsjdlfkjslkdfjlksjdf",
+      "discountParentage": "13",
+      "images": "file"
+    }
+
+-   **Update Campaign:**
+    -   Method: **POST**
+    -   Endpoint: `/campaign/${campaignId}`
+    -   Authentication: Requires a valid authorization token in the request header.
+
+    Request Body:
+    ```json 
+    {
+      "title": "Eid Special Offter 2",
+    }
