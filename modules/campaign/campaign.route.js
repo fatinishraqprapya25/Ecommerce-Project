@@ -14,7 +14,6 @@ const CAMPAIGN_IMAGE_TYPES = /jpeg|jpg|png/;
 campaignRouter.post("/", checkAdmin, upload("campaigns", CAMPAIGN_IMAGE_MAX_SIZE, CAMPAIGN_IMAGE_TYPES).array("images", 3), validateRequest(campaignValidations.createCampaign, campaignMiddlewares.deteteUploadedPhotoIfValidationFailed), campaignController.createCampaign);
 campaignRouter.get("/", checkAdmin, campaignController.getAllCampaigns);
 campaignRouter.get("/:id", checkAdmin, campaignController.getCampaignById);
-campaignRouter.get("/:id", checkAdmin, campaignController.getCampaignById);
 campaignRouter.patch("/:id", checkAdmin, campaignController.updateCampaign);
 
 module.exports = campaignRouter;
