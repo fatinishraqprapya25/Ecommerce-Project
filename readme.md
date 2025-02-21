@@ -239,3 +239,50 @@ This is a full-featured eCommerce application built using **Express.js** and **M
     {
       "title": "Eid Special Offter 2",
     }
+
+### 🔹 Products Section
+
+-   **Get All Products:**
+    -   Method: **GET**
+    -   Endpoint: `/products/`
+    -   Result: After hitting the endpoint, you will get some products informations. There are some query params in the reques. Like maxPrice, minPrice, limit, page, sortBy, sortOrder, category & search. By using this params, your browsing will be enhanced.
+
+-   **Get Single Product:**
+    -   Method: **GET**
+    -   Endpoint: `/products/${productID}`
+    -   Result: After hitting the endpoint, you will get the product information of the provided Id.
+
+-   **Create Product:**
+    -   Method: **POST**
+    -   Endpoint: `/products/`
+    -   Authentication: Requires a valid authorization token in the request header.
+
+    Request Body:
+    ```json 
+    {
+      "name": "Z2 SSD",
+      "category": "Electronics",
+      "description": "a usefull product for programmers",
+      "price": "1000",
+      "stock": "500",
+      "brand": "HP",
+      "images": ""
+    }
+
+-   **Update Product:**
+    -   Method: **PATCH**
+    -   Endpoint: `/products/${productId}`
+    -   Authentication: Requires a valid authorization token in the request header.
+
+    Request Body:
+    ```json 
+    {
+      "name": "Z2 SSD",
+      "category": "Electronics"
+    }
+
+
+-   **Delete Product:**
+    -   Method: **DELETE**
+    -   Endpoint: `/products/${productId}`
+    -   Authentication: Requires a valid authorization token in the request header.
