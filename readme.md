@@ -147,3 +147,16 @@ This is a full-featured eCommerce application built using **Express.js** and **M
               "password": "hello124"
             }
             ```
+     -   **Update User Informations:**
+     By providing authorization token in the request header, if you hit put request in the endpoint, the user informations will be updated.
+        -   Method: **PUT**
+        -   Endpoint: `/user/`
+        -   Body:
+
+            ```json
+            {
+              "email": "john.doe@gmail.com",
+              "code": "256565",
+              "password": "hello124"
+            }
+            ```
