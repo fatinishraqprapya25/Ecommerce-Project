@@ -1,12 +1,16 @@
 const sendResponse = require("../../utils/sendResponse");
 const adminService = require("./admin.service");
-const orderService = require("../order/order.service");
+const User = require("../user/user.model.js")
 
 const adminController = {};
 
 adminController.createAdmin = async (req, res) => {
     try {
-        const info = req.body;
+        const { email } = req.body;
+        const user = await User.findOne({ email });
+        const info = {};
+        info.addedBy = req.admin._id;
+        info.user = user._id;
         const admin = await adminService.createAdmin(info);
         sendResponse(res, 201, {
             success: true,

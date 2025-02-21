@@ -25,15 +25,15 @@ const checkAdmin = async (req, res, next) => {
         const authToken = parts[1];
 
         const user = jwt.verify(authToken, config.jwtSecret);
-        const admin = await Admin.findById(user.id);
+        const admin = await Admin.findOne({ user: user.id });
         if (!admin) {
             return sendResponse(res, 401, {
                 success: false,
                 message: "access denied!"
             });
         }
-
         req.user = user;
+        req.admin = admin;
         next();
     } catch (err) {
         return sendResponse(res, 401, {
