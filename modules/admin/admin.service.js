@@ -1,4 +1,5 @@
 const Admin = require("./admin.model");
+const User = require("../user/user.model")
 
 const adminService = {};
 
@@ -13,7 +14,7 @@ adminService.getAllAdmins = async () => {
 };
 
 adminService.findAdmin = async (id) => {
-    const result = await Admin.findOneById(id);
+    const result = await Admin.findById(id);
     return result;
 };
 

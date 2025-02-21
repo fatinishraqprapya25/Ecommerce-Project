@@ -158,3 +158,41 @@ This is a full-featured eCommerce application built using **Express.js** and **M
         }
         ```
         _Note: Only the fields provided in the body will be updated._
+
+### 🔹 Admin Panel
+
+-   **Create Admin:**
+    -   Method: **Post**
+    -   Endpoint: `/admin/`
+    -   Authentication: Requires a valid authorization token in the request header.
+    -   Body:
+        ```json
+        {
+          "email": "dev.prapya@gmail.com"
+        }
+        ```
+
+-   **Get All Admins:**
+    -   Method: **GET**
+    -   Endpoint: `/admin/`
+    -   Authentication: Requires a valid authorization token in the request header.
+
+-   **Get Single Admin:**
+    -   Method: **GET**
+    -   Endpoint: `/admin/${adminId}`
+    -   Authentication: Requires a valid authorization token in the request header.
+
+-   **Remove Admin:**
+    -   Method: **DELETE**
+    -   Endpoint: `/admin/${adminId}`
+    -   Authentication: Requires a valid authorization token in the request header.
+
+-   **Disabble user:**
+    -   Method: **POST**
+    -   Endpoint: `/admin/disable/${userId}`
+    -   Authentication: Requires a valid authorization token in the request header.
+
+-   **Enable user:**
+    -   Method: **POST**
+    -   Endpoint: `/admin/enable/${userId}`
+    -   Authentication: Requires a valid authorization token in the request header.
