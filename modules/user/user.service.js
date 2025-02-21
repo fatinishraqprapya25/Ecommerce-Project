@@ -6,7 +6,11 @@ const userServices = {};
 
 userServices.register = async (userData) => {
     const user = new User(userData);
-    return await user.save();
+    await user.save();
+    const sanitizedUser = user.toObject();
+    delete sanitizedUser.password;
+    delete sanitizedUser.verificationCode;
+    return sanitizedUser;
 }
 
 userServices.login = async ({ email, password }) => {
@@ -21,8 +25,11 @@ userServices.login = async ({ email, password }) => {
         process.env.JWT_SECRET,
         { expiresIn: "1d" }
     );
+    const sanitizedUser = user.toObject();
+    delete sanitizedUser.password;
+    delete sanitizedUser.verificationCode;
 
-    return { token, user };
+    return { token, user: sanitizedUser };
 }
 
 userServices.updateUserInfo = async (userId, updateData) => {

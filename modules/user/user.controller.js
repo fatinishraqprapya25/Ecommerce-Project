@@ -204,13 +204,7 @@ userController.login = async (req, res) => {
             success: true,
             message: "Login successful",
             token,
-            data: {
-                id: user._id,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email,
-                role: user.role
-            }
+            data: user
         });
     } catch (err) {
         sendResponse(res, 401, {
