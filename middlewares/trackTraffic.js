@@ -1,5 +1,5 @@
 const isLoggedIn = require("../utils/isLoggedin");
-const saveTrafficData = require("../utils/saveTrafficData");
+const { saveTrafficData } = require("../utils/saveTrafficData");
 
 const trackTraffic = async (req, res, next) => {
     try {

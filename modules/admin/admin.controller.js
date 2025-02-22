@@ -1,7 +1,7 @@
 const sendResponse = require("../../utils/sendResponse");
 const adminService = require("./admin.service");
 const User = require("../user/user.model.js");
-const Traffic = require("../../utils/saveTrafficData.js");
+const { Traffic } = require("../../utils/saveTrafficData.js");
 
 const adminController = {};
 
@@ -129,13 +129,13 @@ adminController.getTodaysTraffic = async (req, res) => {
             date: today
         });
 
-        sendResponse(200, {
+        sendResponse(res, 200, {
             success: true,
             message: "Today's traffic retrieved successfully!",
             data: traffic
         });
     } catch (err) {
-        sendResponse(500, {
+        sendResponse(res, 500, {
             success: false,
             message: err.message,
             error: err
@@ -150,13 +150,13 @@ adminController.getThisMonthsTraffic = async (req, res) => {
         const traffic = await Traffic.countDocuments({
             date: { $gte: `${yearMonth}-01`, $lte: `${yearMonth}-31` }
         });
-        sendResponse(200, {
+        sendResponse(res, 200, {
             success: true,
             message: "This months traffic retrieved successfully!",
             data: traffic
         });
     } catch (err) {
-        sendResponse(500, {
+        sendResponse(res, 500, {
             success: false,
             message: "failed to fetch traffic of this months",
             error: err
