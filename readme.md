@@ -13,9 +13,15 @@ This is a full-featured eCommerce application built using **Express.js** and **M
 - **Product Management**
   - Create, update, delete products (Admin only)
   - Product listing with search and filtering options
-- **Cart & Order System**
+- **Cart, Wishlist & Order System**
   - Add/remove products from the cart
   - Place and manage orders
+- **Campaign Feature**
+  - Admin can run campaign
+  - Admin can add discounts to products and check campaign sells 
+- **Track Traffic**
+  - Save traffic data
+  - Shows traffic data
 - **Payment Integration (Upcoming)**
   - Secured Payment Processing
 
