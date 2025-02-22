@@ -15,7 +15,7 @@ const routes = [
     { path: "/admin", router: adminRoute },
     { path: "/products", router: productRouter },
     { path: "/cart", router: cartRouter },
-    { path: "/checkout", router: orderRouter },
+    { path: "/orders", router: orderRouter },
     { path: "/wishlist", router: wishlistRouter },
     { path: "/campaign", router: campaignRouter },
 ]

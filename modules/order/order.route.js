@@ -7,7 +7,7 @@ const orderValidatdions = require("./order.validation");
 
 const orderRouter = Router();
 
-orderRouter.post("/", validateRequest(orderValidatdions.createOrder), checkLogin, orderController.createOrder);
+orderRouter.post("/checkout", validateRequest(orderValidatdions.createOrder), checkLogin, orderController.createOrder);
 orderRouter.get("/", checkLogin, orderController.getOrdersByUser);
 orderRouter.get("/:orderId", checkLogin, orderController.getOrderById);
 orderRouter.patch("/:orderId", checkLogin, orderController.cancelOrder);
