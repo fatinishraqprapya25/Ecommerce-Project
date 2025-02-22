@@ -357,3 +357,54 @@ This is a full-featured eCommerce application built using **Express.js** and **M
     -   Method: **Delete**
     -   Endpoint: `/wishlist/`
     -   Authentication: Requires a valid authorization token in the request header.
+
+### 🔹 Order Section
+-   **Create Order:**
+    -   Method: **POST**
+    -   Endpoint: `/orders/checkout`
+    -   Authentication: Requires a valid authorization token in the request header.
+
+    Request Body:
+    ```json 
+    {
+      "address": "Forkerhat, Rajarhat, Kurigram",
+      "paymentMethod": "cash_on_delivery",
+      "products": [
+        {
+          "productId": "671c847389d1b693b1bbb111",
+          "quantity": 5
+        }
+      ]
+    }
+
+-   **Get Order by User Id:**
+    -   Method: **GET**
+    -   Endpoint: `/orders/`
+    -   Authentication: Requires a valid authorization token in the request header.
+
+-   **Get Order by Order Id:**
+    -   Method: **GET**
+    -   Endpoint: `/orders/${orderId}`
+    -   Authentication: Requires a valid authorization token in the request header.
+
+-   **Cancel Order:**
+    -   Method: **PATCH**
+    -   Endpoint: `/orders/${orderId}`
+    -   Authentication: Requires a valid authorization token in the request header.
+
+-   **Change Order Status:**
+    -   Method: **POST**
+    -   Endpoint: `/orders/${orderId}`
+    -   Authentication: Requires a valid authorization token in the request header.
+
+    Request Body:
+    ```json 
+    {
+      "orderId": "671c847389d1b693b1bbb111",
+      "status": "delivered",
+    }
+
+-   **Get all Orders:**
+    -   Method: **GET**
+    -   Endpoint: `/orders/get/all`
+    -   Authentication: Requires a valid authorization token in the request header.
