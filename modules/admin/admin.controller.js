@@ -124,11 +124,14 @@ adminController.enableUser = async (req, res) => {
 
 adminController.getTodaysTraffic = async (req, res) => {
     try {
-        const today = new Date(Date.now()).toISOString().split("T")[0];
-        const traffic = await Traffic.find({ date: today });
+        const today = new Date().toISOString().split("T")[0];
+        const traffic = await Traffic.countDocuments({
+            date: today
+        });
+
         sendResponse(200, {
             success: true,
-            message: "Todays traffic retrieved successfully!",
+            message: "Today's traffic retrieved successfully!",
             data: traffic
         });
     } catch (err) {
