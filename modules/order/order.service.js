@@ -1,6 +1,6 @@
-const Cart = require("../cart/cart.model");
 const Product = require("../product/product.model");
 const Order = require("./order.model");
+const Campaign = require("../campaign/campaign.model");
 
 const orderService = {};
 
@@ -21,10 +21,26 @@ orderService.createOrder = async (userId, products, orderData) => {
         throw new Error("Some products are out of stock.");
     }
 
-    const totalAmount = products.reduce((total, item) => {
+    const activeCampaign = await Campaign.findOne({ isActive: true });
+
+    let totalAmount = products.reduce((total, item) => {
         const product = productDetails.find(p => p._id.equals(item.productId));
-        return product ? total + product.price * item.quantity : total;
+        const anoProduct = product.toObject();
+        if (activeCampaign) {
+            const discount = activeCampaign.discountPercentage;
+            if (discount > anoProduct.discount) {
+                anoProduct.price = anoProduct.price - ((discount / 100) * anoProduct.price);
+            } else {
+                anoProduct.price = anoProduct.price - ((anoProduct.discount / 100) * anoProduct.price);
+            }
+            return product ? total + anoProduct.price * item.quantity : total;
+        }
     }, 0);
+
+    if (activeCampaign) {
+        activeCampaign.sells += 1;
+        await activeCampaign.save();
+    }
 
     return await new Order({
         userId,
