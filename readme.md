@@ -197,8 +197,23 @@ This is a full-featured eCommerce application built using **Express.js** and **M
     -   Endpoint: `/admin/enable/${userId}`
     -   Authentication: Requires a valid authorization token in the request header.
 
+-   **Get Todays Traffic:**
+    -   Method: **GET**
+    -   Endpoint: `/admin/traffic/today`
+    -   Authentication: Requires a valid authorization token in the request header.
 
-### 🔹 Admin Panel
+-   **Get This Month's Traffic:**
+    -   Method: **GET**
+    -   Endpoint: `/admin/traffic/thismonth`
+    -   Authentication: Requires a valid authorization token in the request header.
+
+-   **Get This Year's Traffic:**
+    -   Method: **GET**
+    -   Endpoint: `/admin/traffic/thisyear`
+    -   Authentication: Requires a valid authorization token in the request header.
+
+
+### 🔹 Campaign Section
 -   **Get All Campaigns:**
     -   Method: **GET**
     -   Endpoint: `/campaign/`
