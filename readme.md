@@ -329,3 +329,31 @@ This is a full-featured eCommerce application built using **Express.js** and **M
     -   Authentication: Requires a valid authorization token in the request header.
 
 
+### 🔹 Wishlist Section
+
+-   **Create or Update Wishlist:**
+    -   Method: **POST**
+    -   Endpoint: `/wishlist`
+    -   Authentication: Requires a valid authorization token in the request header.
+
+    Request Body:
+    ```json 
+    {
+      "productId": "671c847389d1b693b1bbb111",
+    }
+
+-   **Get Wishlist By User Id:**
+    -   Method: **Get**
+    -   Endpoint: `/wishlist`
+    -   Authentication: Requires a valid authorization token in the request header.
+
+
+-   **Remove Product From Wishlist:**
+    -   Method: **Delete**
+    -   Endpoint: `/wishlist/${productId}`
+    -   Authentication: Requires a valid authorization token in the request header.
+
+-   **Clear Wishlist:**
+    -   Method: **Delete**
+    -   Endpoint: `/wishlist/`
+    -   Authentication: Requires a valid authorization token in the request header.

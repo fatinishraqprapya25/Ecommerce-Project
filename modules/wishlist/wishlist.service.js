@@ -8,7 +8,7 @@ wishlistService.getWishlistByUser = async (userId) => {
 }
 
 wishlistService.addProductToWishlist = async (userId, productId) => {
-    await Wishlist.findOneAndUpdate(
+    return await Wishlist.findOneAndUpdate(
         { user: userId },
         { $addToSet: { products: { product: productId } } },
         { new: true, upsert: true }
