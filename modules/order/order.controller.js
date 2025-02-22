@@ -27,7 +27,6 @@ orderController.getOrdersByUser = async (req, res) => {
     const userId = req.user.id;
     try {
         const orders = await orderService.getOrdersByUser(userId);
-        console.log(orders)
         sendResponse(res, 200, {
             success: true,
             message: 'Orders fetched successfully!',
