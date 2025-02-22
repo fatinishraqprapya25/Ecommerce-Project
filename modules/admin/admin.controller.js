@@ -146,7 +146,7 @@ adminController.getTodaysTraffic = async (req, res) => {
 adminController.getThisMonthsTraffic = async (req, res) => {
     try {
         const today = new Date(Date.now());
-        const yearMonth = new Date(today).toISOString().split("T")[0];
+        const yearMonth = new Date(today).toISOString().split("T")[0].slice(0, 7);
         const traffic = await Traffic.countDocuments({
             date: { $gte: `${yearMonth}-01`, $lte: `${yearMonth}-31` }
         });
@@ -164,8 +164,25 @@ adminController.getThisMonthsTraffic = async (req, res) => {
     }
 }
 
-// adminController.getThisYearsTraffic = async (req, res) => {
-//     try { }
-// }
+adminController.getThisYearsTraffic = async (req, res) => {
+    try {
+        const today = new Date(Date.now());
+        const year = new Date(today).toISOString().split("T")[0].slice(0, 4);
+        const traffic = await Traffic.countDocuments({
+            date: { $gte: `${year}-01-01`, $lte: `${year}-12-31` }
+        });
+        sendResponse(res, 200, {
+            success: true,
+            message: "this years traffic retrieved successfully!",
+            data: traffic
+        });
+    } catch (err) {
+        sendResponse(res, 500, {
+            success: false,
+            message: "Failed to retreive this years traffic",
+            error: err
+        });
+    }
+}
 
 module.exports = adminController;
