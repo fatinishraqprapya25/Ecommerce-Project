@@ -286,3 +286,46 @@ This is a full-featured eCommerce application built using **Express.js** and **M
     -   Method: **DELETE**
     -   Endpoint: `/products/${productId}`
     -   Authentication: Requires a valid authorization token in the request header.
+
+
+### 🔹 Cart Section
+
+-   **Create or Update Cart:**
+    -   Method: **POST**
+    -   Endpoint: `/cart`
+    -   Authentication: Requires a valid authorization token in the request header.
+
+    Request Body:
+    ```json 
+    {
+      "productId": "671c847389d1b693b1bbb111",
+      "quantity": 2 //optional
+    }
+
+-   **Get Cart By User Id:**
+    -   Method: **Get**
+    -   Endpoint: `/cart`
+    -   Authentication: Requires a valid authorization token in the request header.
+
+-   **Update Product Quantity:**
+    -   Method: **PATCH**
+    -   Endpoint: `/cart`
+    -   Authentication: Requires a valid authorization token in the request header.
+
+    Request Body:
+    ```json 
+    {
+      "quantity": 2 
+    }
+
+-   **Remove Product From Cart:**
+    -   Method: **Delete**
+    -   Endpoint: `/cart/${productId}`
+    -   Authentication: Requires a valid authorization token in the request header.
+
+-   **Clear Cart:**
+    -   Method: **Delete**
+    -   Endpoint: `/cart/`
+    -   Authentication: Requires a valid authorization token in the request header.
+
+
