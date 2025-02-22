@@ -44,7 +44,7 @@ const saveTrafficData = async (trafficData) => {
                 userId,
                 userType,
                 activities: [{ method, route, timestamp: Date.now() }],
-                date: currentDat
+                date: currentDate
             });
         } else {
             traffic.activities.push({
