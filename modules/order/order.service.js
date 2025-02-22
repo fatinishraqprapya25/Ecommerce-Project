@@ -38,8 +38,16 @@ orderService.createOrder = async (userId, products, orderData) => {
 
 
 orderService.cancelOrder = async (orderId) => {
+    const order = await Order.findById(orderId);
+    if (!order) {
+        throw new Error("Order not found.");
+    }
+    if (order.status === "shipped") {
+        throw new Error("Order has already been shipped and cannot be cancelled.");
+    }
     return await Order.findByIdAndUpdate(orderId, { status: "cancelled" }, { new: true, runValidators: true });
 };
+
 
 orderService.getOrdersByUser = async (userId) => {
     return await Order.find({ userId }).populate('products.productId');
