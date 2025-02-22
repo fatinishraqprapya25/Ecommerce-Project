@@ -1,28 +1,41 @@
 const Cart = require("../cart/cart.model");
+const Product = require("../product/product.model");
 const Order = require("./order.model");
 
 const orderService = {};
 
-orderService.createOrder = async (userId, orderData) => {
-    const cart = await Cart.findOne({ userId }).populate("products.productId");
-    if (!cart || cart.products.length === 0) throw new Error("Cart is empty. Cannot create an order.'");
+orderService.createOrder = async (userId, products, orderData) => {
+    if (!products || products.length === 0) {
+        throw new Error("Product list is empty. Cannot create an order.");
+    }
 
-    const totalAmount = cart.products.reduce((total, item) =>
-        total + item.productId.price * item.quantity, 0
-    );
+    const productDetails = await Product.find({ _id: { $in: products } });
+
+    if (productDetails.length !== products.length) {
+        throw new Error("Some products were not found.");
+    }
+
+    const outOfStockProducts = productDetails.filter(p => p.stock <= 0);
+    if (outOfStockProducts.length > 0) {
+        throw new Error("Some products are out of stock.");
+    }
+
+    const totalAmount = products.reduce((total, item) => {
+        const product = productDetails.find(p => p._id.equals(item.productId));
+        return total + (product ? product.price * item.quantity : 0);
+    }, 0);
 
     const newOrder = new Order({
         userId,
-        products: cart.products,
+        products,
         totalAmount,
         address: orderData.address,
         paymentMethod: orderData.paymentMethod
     });
 
-    const savedOrder = newOrder.save();
-    return savedOrder;
+    return await newOrder.save();
+};
 
-}
 
 orderService.cancelOrder = async (orderId) => {
     return await Order.findByIdAndUpdate(orderId, { status: "cancelled" }, { new: true, runValidators: true });

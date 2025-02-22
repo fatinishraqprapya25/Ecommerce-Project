@@ -4,11 +4,11 @@ const sendResponse = require('../../utils/sendResponse');
 const orderController = {};
 
 orderController.createOrder = async (req, res) => {
-    const { address, paymentMethod } = req.body;
+    const { address, paymentMethod, products } = req.body;
     const userId = req.user.id;
 
     try {
-        const order = await orderService.createOrder(userId, { address, paymentMethod });
+        const order = await orderService.createOrder(userId, products, { address, paymentMethod });
         sendResponse(res, 201, {
             success: true,
             message: 'Order created successfully!',
