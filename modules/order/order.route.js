@@ -11,7 +11,7 @@ orderRouter.post("/checkout", validateRequest(orderValidatdions.createOrder), ch
 orderRouter.get("/", checkLogin, orderController.getOrdersByUser);
 orderRouter.get("/:orderId", checkLogin, orderController.getOrderById);
 orderRouter.patch("/:orderId", checkLogin, orderController.cancelOrder);
-orderRouter.post("/status", checkAdmin, orderController.changeOrderStatus);
+orderRouter.post("/status", validateRequest(orderValidatdions.changeOrderStatus), checkAdmin, orderController.changeOrderStatus);
 orderRouter.get("/all", checkAdmin, orderController.getAllOrders);
 
 module.exports = orderRouter;
