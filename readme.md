@@ -63,7 +63,7 @@ This is a full-featured eCommerce application built using **Express.js** and **M
 
 ## 📌 API Endpoints
 
-**Base URL:** _not published yet_
+**Base URL:** https://ecommerce-projec-git-00133d-practice-projects-projects-2d662f0a.vercel.app/
 
 ### 🔹 Authentication
 
