@@ -5,11 +5,12 @@ const Order = require("./order.model");
 const orderService = {};
 
 orderService.createOrder = async (userId, products, orderData) => {
-    if (!products || products.length === 0) {
+    if (!Array.isArray(products) || products.length === 0) {
         throw new Error("Product list is empty. Cannot create an order.");
     }
 
-    const productDetails = await Product.find({ _id: { $in: products } });
+    const productIds = products.map(item => item.productId);
+    const productDetails = await Product.find({ _id: { $in: productIds } });
 
     if (productDetails.length !== products.length) {
         throw new Error("Some products were not found.");
@@ -22,18 +23,16 @@ orderService.createOrder = async (userId, products, orderData) => {
 
     const totalAmount = products.reduce((total, item) => {
         const product = productDetails.find(p => p._id.equals(item.productId));
-        return total + (product ? product.price * item.quantity : 0);
+        return product ? total + product.price * item.quantity : total;
     }, 0);
 
-    const newOrder = new Order({
+    return await new Order({
         userId,
         products,
         totalAmount,
         address: orderData.address,
         paymentMethod: orderData.paymentMethod
-    });
-
-    return await newOrder.save();
+    }).save();
 };
 
 
