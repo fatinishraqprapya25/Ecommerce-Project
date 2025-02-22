@@ -1,6 +1,7 @@
 const sendResponse = require("../../utils/sendResponse");
 const adminService = require("./admin.service");
-const User = require("../user/user.model.js")
+const User = require("../user/user.model.js");
+const Traffic = require("../../utils/saveTrafficData.js");
 
 const adminController = {};
 
@@ -120,5 +121,23 @@ adminController.enableUser = async (req, res) => {
         sendResponse(res, 500, { success: false, message: "Error enabling user", error: err.message });
     }
 };
+
+adminController.getTodaysTraffic = async (req, res) => {
+    try {
+        const today = new Date(Date.now()).toISOString().split("T")[0];
+        const traffic = await Traffic.find({ date: today });
+        sendResponse(200, {
+            success: true,
+            message: "Todays traffic retrieved successfully!",
+            data: traffic
+        });
+    } catch (err) {
+        sendResponse(500, {
+            success: false,
+            message: err.message,
+            error: err
+        });
+    }
+}
 
 module.exports = adminController;
