@@ -143,4 +143,29 @@ adminController.getTodaysTraffic = async (req, res) => {
     }
 }
 
+adminController.getThisMonthsTraffic = async (req, res) => {
+    try {
+        const today = new Date(Date.now());
+        const yearMonth = new Date(today).toISOString().split("T")[0];
+        const traffic = await Traffic.countDocuments({
+            date: { $gte: `${yearMonth}-01`, $lte: `${yearMonth}-31` }
+        });
+        sendResponse(200, {
+            success: true,
+            message: "This months traffic retrieved successfully!",
+            data: traffic
+        });
+    } catch (err) {
+        sendResponse(500, {
+            success: false,
+            message: "failed to fetch traffic of this months",
+            error: err
+        });
+    }
+}
+
+// adminController.getThisYearsTraffic = async (req, res) => {
+//     try { }
+// }
+
 module.exports = adminController;
