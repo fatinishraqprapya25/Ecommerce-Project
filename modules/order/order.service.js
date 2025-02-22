@@ -50,20 +50,27 @@ orderService.cancelOrder = async (orderId) => {
 
 
 orderService.getOrdersByUser = async (userId) => {
-    return await Order.find({ userId }).populate('products.productId');
+    const result = await Order.find({ userId }).populate('products.productId');
+    if (!result) throw new Error("Error Occured Fetching Orders");
+    return result;
 };
 
 orderService.getOrderById = async (orderId) => {
-    return await Order.findById(orderId).populate('products.productId');
+    const result = await Order.findById(orderId).populate('products.productId');
+    if (!result) throw new Error("Error Occured Fetching Order");
+    return result;
 };
 
 // functionlities only for admin
 orderService.changeStatus = async (orderId, status) => {
-    return await Order.findByIdAndUpdate(orderId, { status: status });
+    const result = await Order.findByIdAndUpdate(orderId, { status: status });
+    if (!result) throw new Error("Error Occured Changing Order Status");
+    return result;
 }
 
 orderService.getAllOrders = async (query = {}) => {
     const orders = await Order.find(query);
+    if (!orders) throw new Error("Error Occured Fetching all Orders");
     return orders;
 }
 
