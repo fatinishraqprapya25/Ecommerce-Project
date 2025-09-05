@@ -2,8 +2,7 @@ const { default: mongoose } = require("mongoose")
 
 const trafficSchema = new mongoose.Schema({
     userId: {
-        type: mongoose.Types.ObjectId,
-        ref: "User",
+        type: String,
         required: true
     },
     userType: {
