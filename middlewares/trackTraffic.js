@@ -14,8 +14,6 @@ const trackTraffic = async (req, res, next) => {
             method: req.method,
             timestamp: new Date(),
         };
-
-        console.log("Traffic Data:", trafficData);
         await saveTrafficData(trafficData);
     } catch (error) {
         console.error("Error tracking traffic:", error);
