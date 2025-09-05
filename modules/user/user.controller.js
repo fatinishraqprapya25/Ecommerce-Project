@@ -61,7 +61,7 @@ userController.register = async (req, res) => {
             const newUser = await userServices.register(userData);
             return sendResponse(res, 201, {
                 success: true,
-                message: "User registered successfully",
+                message: "User registered successfully. we sent a varification code to your email, please verify it!",
                 data: newUser
             });
         }
