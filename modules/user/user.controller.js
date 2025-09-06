@@ -18,14 +18,13 @@ userController.register = async (req, res) => {
         if (emailRegistered) {
             sendResponse(res, 500, {
                 success: false,
-                message: "email is already registered!"
+                message: "Email is already registered!"
             });
         }
-        console.log(req.file);
         const fileName = req.file ? req.file.path : null;
         let filePath;
         if (fileName === null) {
-            filePath = path.join(__dirname, "../../uploads/profile", "avatar.jpg");
+            filePath = path.join(process.cwd(), "uploads/profile", "avatar.jpg");
         } else {
             filePath = path.join(__dirname, "../../", fileName);
         }
