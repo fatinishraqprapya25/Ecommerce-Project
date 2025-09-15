@@ -1,6 +1,7 @@
 const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const config = require("../config/index");
 const path = require("path");
 
 cloudinary.config({
@@ -14,7 +15,7 @@ function upload(uploadFolder, size, fileTypes) {
         cloudinary,
         params: {
             folder: uploadFolder,
-            allowed_formats: fileTypes,
+            allowed_formats: fileTypes.source.split("|"),
         }
     });
 

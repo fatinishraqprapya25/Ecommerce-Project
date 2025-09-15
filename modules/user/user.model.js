@@ -25,7 +25,14 @@ const userSchema = new mongoose.Schema({
         default: "active"
     },
     profile: {
-        type: String
+        fileName: {
+            type: String,
+            required: true,
+        },
+        path: {
+            type: String,
+            required: true
+        }
     },
     verificationCode: String,
     isVerified: {

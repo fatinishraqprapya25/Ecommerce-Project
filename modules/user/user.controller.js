@@ -21,14 +21,17 @@ userController.register = async (req, res) => {
                 message: "Email is already registered!"
             });
         }
-        const fileName = req.file ? req.file.path : null;
-        let filePath;
-        if (fileName === null) {
-            filePath = path.join(process.cwd(), "uploads/profile", "avatar.jpg");
+        if (req.file) {
+            userData.profile = {
+                fileName: req.file.filename,
+                path: req.file.path
+            }
         } else {
-            filePath = path.join(__dirname, "../../", fileName);
+            userData.profile = {
+                fileName: "hiji biji hiji biji",
+                path: "https://surl.li/qlkabv"
+            }
         }
-        userData.profile = filePath;
 
         if (userData.isVerified) delete userData.isVerified;
         if (userData.verificationCode) delete userData.
