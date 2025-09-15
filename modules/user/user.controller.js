@@ -16,7 +16,7 @@ userController.register = async (req, res) => {
         const { email } = userData;
         const emailRegistered = await User.findOne({ email });
         if (emailRegistered) {
-            sendResponse(res, 500, {
+            return sendResponse(res, 500, {
                 success: false,
                 message: "Email is already registered!"
             });
@@ -53,7 +53,6 @@ userController.register = async (req, res) => {
             `
         };
         const sentCode = await sendEmail(mailDetails);
-        console.log(sentCode);
 
         if (sentCode) {
             userData.verificationCode = jwt.sign({ code }, config.jwtSecret, { expiresIn: "2m" });

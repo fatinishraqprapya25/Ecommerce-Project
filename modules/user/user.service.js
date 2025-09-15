@@ -1,6 +1,7 @@
 const User = require("./user.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const config = require("../../config");
 
 const userServices = {};
 
@@ -22,7 +23,7 @@ userServices.login = async ({ email, password }) => {
 
     const token = jwt.sign(
         { id: user._id },
-        process.env.JWT_SECRET,
+        config.jwtSecret,
         { expiresIn: "1d" }
     );
     const sanitizedUser = user.toObject();
