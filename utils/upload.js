@@ -1,15 +1,20 @@
 const multer = require("multer");
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const path = require("path");
 
+cloudinary.config({
+    cloud_name: config.cloudinaryCloudName,
+    api_key: config.cloudinaryApiKey,
+    api_secret: config.cloudinaryApiSecret
+});
+
 function upload(uploadFolder, size, fileTypes) {
-    const storage = multer.diskStorage({
-        destination: (req, file, cb) => {
-            cb(null, `uploads/${uploadFolder}`);
-        },
-        filename: (req, file, cb) => {
-            const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-            const filename = `${file.fieldname}-${uniqueSuffix}${path.extname(file.originalname)}`;
-            cb(null, filename);
+    const storage = new CloudinaryStorage({
+        cloudinary,
+        params: {
+            folder: uploadFolder,
+            allowed_formats: fileTypes,
         }
     });
 
