@@ -8,8 +8,8 @@ const adminSchema = new mongoose.Schema({
     },
     addedBy: {
         type: mongoose.Types.ObjectId,
-        required: true,
-        ref: "Admin"
+        ref: "Admin",
+        default: null
     },
     isDeleted: {
         type: Boolean,
