@@ -9,7 +9,7 @@ adminService.createAdmin = async (info) => {
 };
 
 adminService.getAllAdmins = async () => {
-    const result = await Admin.find({});
+    const result = await Admin.find({}).populate("user");
     return result;
 };
 
