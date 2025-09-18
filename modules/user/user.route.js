@@ -2,14 +2,14 @@ const { Router } = require("express");
 const userController = require("./user.controller");
 const validateRequest = require("../../middlewares/validateRequest");
 const userValidations = require("./user.validations");
-const userMiddlewares = require("./user.middlewares");
 const checkLogin = require("../../middlewares/checkLogin");
 const deleteCloudinaryFile = require("../../utils/deleteUploadedFile");
+const uploadProfilePic = require("../../middlewares/auth/uploadProfilePic");
 
 const authRoute = Router();
 
 // user registration
-authRoute.post("/register", userMiddlewares.uploader, validateRequest(userValidations.userRegistrationValidationSchema, deleteCloudinaryFile), userController.register);
+authRoute.post("/register", uploadProfilePic, validateRequest(userValidations.userRegistrationValidationSchema, deleteCloudinaryFile), userController.register);
 
 authRoute.post("/verify", validateRequest(userValidations.verifyUser), userController.verifyUser);
 authRoute.post("/sendcode", validateRequest(userValidations.sendCodeValidation), userController.sendCodeToResetPass);
@@ -19,6 +19,6 @@ authRoute.post("/login", validateRequest(userValidations.loginValidationSchema),
 
 const userRoute = Router();
 // user info update
-userRoute.put("/", userMiddlewares.uploader, checkLogin, validateRequest(userValidations.updateUserValidationSchema), userController.updateUserInfo);
+userRoute.put("/", uploadProfilePic, checkLogin, validateRequest(userValidations.updateUserValidationSchema), userController.updateUserInfo);
 
 module.exports = { authRoute, userRoute };
