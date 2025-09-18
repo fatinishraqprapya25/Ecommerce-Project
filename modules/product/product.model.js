@@ -40,16 +40,6 @@ const productSchema = new mongoose.Schema({
             altText: { type: String }
         }
     ],
-    ratingsAverage: {
-        type: Number,
-        default: 0,
-        min: 0,
-        max: 5
-    },
-    ratingsCount: {
-        type: Number,
-        default: 0
-    },
     isFeatured: {
         type: Boolean,
         default: false

@@ -7,6 +7,12 @@ const productController = {};
 productController.createProduct = async (req, res) => {
     try {
         const productDetails = req.body;
+        const isFeatured = productDetails?.isFeatured;
+        if (isFeatured === "true") {
+            productDetails.isFeatured = true;
+        } else {
+            productDetails.isFeatured = false;
+        }
         const images = [];
         req.files.map(file => {
             let filePath = path.join(__dirname, "../../", file.path);

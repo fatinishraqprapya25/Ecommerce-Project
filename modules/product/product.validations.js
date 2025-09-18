@@ -27,7 +27,10 @@ productValidations.createSchema = z.object({
             }),
         brand: z.string()
             .max(50, "Brand name must be at most 50 characters long"),
-        isFeatured: z.boolean().optional(),
+        isFeatured: z.preprocess(
+            (value) => value === "true" || value === true,
+            z.boolean().optional()
+        ),
     })
 });
 
