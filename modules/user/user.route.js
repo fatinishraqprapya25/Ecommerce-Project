@@ -4,11 +4,12 @@ const validateRequest = require("../../middlewares/validateRequest");
 const userValidations = require("./user.validations");
 const userMiddlewares = require("./user.middlewares");
 const checkLogin = require("../../middlewares/checkLogin");
+const deleteCloudinaryFile = require("../../utils/deleteUploadedFile");
 
 const authRoute = Router();
 
 // user registration
-authRoute.post("/register", userMiddlewares.uploader, validateRequest(userValidations.userRegistrationValidationSchema, userMiddlewares.deteteUploadedPhotoIfValidationFailed), userController.register);
+authRoute.post("/register", userMiddlewares.uploader, validateRequest(userValidations.userRegistrationValidationSchema, deleteCloudinaryFile), userController.register);
 
 authRoute.post("/verify", validateRequest(userValidations.verifyUser), userController.verifyUser);
 authRoute.post("/sendcode", validateRequest(userValidations.sendCodeValidation), userController.sendCodeToResetPass);

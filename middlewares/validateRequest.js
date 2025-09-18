@@ -5,7 +5,8 @@ const validateRequest = (schema, callback = "") => {
                 body: req.body
             });
             if (callback !== "") callback({
-                success: true
+                success: true,
+                req, res
             })
             return next();
         } catch (err) {
