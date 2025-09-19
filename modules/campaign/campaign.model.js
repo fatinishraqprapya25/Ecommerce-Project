@@ -30,10 +30,6 @@ const campaignSchema = new mongoose.Schema({
             source: { type: String, required: true }
         }
     ],
-    sells: {
-        type: Number,
-        default: 0
-    },
     isActive: {
         type: Boolean,
         default: true,
