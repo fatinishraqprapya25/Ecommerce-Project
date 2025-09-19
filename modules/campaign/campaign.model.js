@@ -27,7 +27,9 @@ const campaignSchema = new mongoose.Schema({
     },
     images: [
         {
-            source: { type: String, required: true }
+            path: { type: String, required: true },
+            filename: { type: String, required: true },
+            altText: { type: String }
         }
     ],
     isActive: {

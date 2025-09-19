@@ -1,6 +1,5 @@
 const campaignServices = require('./campaign.service');
 const sendResponse = require('../../utils/sendResponse');
-const path = require("path");
 
 const campaignController = {};
 
@@ -19,11 +18,14 @@ campaignController.createCampaign = async (req, res) => {
             });
         }
 
-        files.map(file => {
-            const filePath = file.path;
-            const fullFilepath = path.join(__dirname, "../../", filePath);
-            images.push({ source: fullFilepath });
-        });
+        if (files.length > 0) {
+            for (const file of files) {
+                images.push({
+                    path: file.path,
+                    filename: file.filename
+                });
+            }
+        }
 
         campaignDetails.images = images;
 
