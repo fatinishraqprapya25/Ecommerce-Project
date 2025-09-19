@@ -1,6 +1,7 @@
 const Product = require("../product/product.model");
 const Order = require("./order.model");
 const Campaign = require("../campaign/campaign.model");
+const { json } = require("express");
 
 const orderService = {};
 
@@ -71,17 +72,26 @@ orderService.getTheProductsOrderedByUser = async (userId) => {
             path: "products.productId",
             select: "name price images category"
         });
+
     const products = new Map();
     orders.map(order => {
         order.products.map(product => {
-            const productId = product._id.toString();
+            const productDetails = {
+                name: product.productId.name,
+                _id: product.productId._id,
+                price: product.productId.price,
+                images: product.productId._images,
+                category: product.productId.category
+            }
+
+            const productId = product.productId.toString();
             if (!products.has(productId)) {
-                products.set(id, product);
+                products.set(productId, productDetails);
             }
         });
     });
 
-    return products;
+    return Array.from(products.values());
 }
 
 orderService.getOrderById = async (orderId) => {

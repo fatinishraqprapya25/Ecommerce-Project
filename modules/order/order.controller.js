@@ -91,7 +91,7 @@ orderController.cancelOrder = async (req, res) => {
 
 orderController.getTheProductsOrderedByUser = async (req, res) => {
     try {
-        const { userId } = req.user;
+        const userId = req.user.id;
         const result = await orderService.getTheProductsOrderedByUser(userId);
         sendResponse(res, 200, {
             success: false,
@@ -101,7 +101,8 @@ orderController.getTheProductsOrderedByUser = async (req, res) => {
     } catch (err) {
         sendResponse(res, 500, {
             success: false,
-            message: "Failed to get the products ordered by the users!"
+            message: "Failed to get the products ordered by the users!",
+            error: err.message
         });
     }
 }
