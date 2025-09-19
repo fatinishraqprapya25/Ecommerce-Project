@@ -65,6 +65,25 @@ orderService.getOrdersByUser = async (userId) => {
     return result;
 };
 
+orderService.getTheProductsOrderedByUser = async (userId) => {
+    const orders = await Order.find({ userId })
+        .populate({
+            path: "products.productId",
+            select: "name price images category"
+        });
+    const products = new Map();
+    orders.map(order => {
+        order.products.map(product => {
+            const productId = product._id.toString();
+            if (!products.has(productId)) {
+                products.set(id, product);
+            }
+        });
+    });
+
+    return products;
+}
+
 orderService.getOrderById = async (orderId) => {
     const result = await Order.findById(orderId).populate('products.productId');
     if (!result) throw new Error("Error Occured Fetching Order");
