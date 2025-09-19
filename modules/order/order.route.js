@@ -15,6 +15,8 @@ orderRouter.get("/:orderId", checkLogin, orderController.getOrderById);
 
 orderRouter.patch("/:orderId", checkLogin, orderController.cancelOrder);
 
+orderRouter.get("/products/:userId", checkLogin, orderController.getTheProductsOrderedByUser);
+
 // admin routes
 orderRouter.post("/status", validateRequest(orderValidatdions.changeOrderStatus), checkAdmin, orderController.changeOrderStatus);
 
