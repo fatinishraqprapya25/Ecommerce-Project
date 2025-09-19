@@ -79,7 +79,6 @@ productService.addProductImages = async (id, images) => {
     const product = await Product.findById(id);
     if (product.images.length + images.length > 3) {
         for (const image of images) {
-            console.log(image);
             await cloudinary.uploader.destroy(image.filename);
         }
         throw new Error("Product cannot contain more than 3 images!");
