@@ -89,6 +89,23 @@ orderController.cancelOrder = async (req, res) => {
     }
 };
 
+orderController.getTheProductsOrderedByUser = async (req, res) => {
+    try {
+        const { userId } = req.user;
+        const result = await orderService.getTheProductsOrderedByUser(userId);
+        sendResponse(res, 200, {
+            success: false,
+            message: "The Products Ordered by the user retreived successfully!",
+            data: result
+        });
+    } catch (err) {
+        sendResponse(res, 500, {
+            success: false,
+            message: "Failed to get the products ordered by the users!"
+        });
+    }
+}
+
 orderController.changeOrderStatus = async (req, res) => {
     const { orderId, status } = req.body;
     try {
