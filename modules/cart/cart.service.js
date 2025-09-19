@@ -4,7 +4,7 @@ const cartService = {};
 cartService.createOrUpdateCart = async (userId, productData) => {
     const cart = await Cart.findOneAndUpdate(
         { userId },
-        { $set: { userId }, $addToSet: { products: productData } },
+        { $set: { userId }, $addToSet: { products: productData.products } },
         { new: true, upsert: true, runValidators: true }
     );
     return cart;
