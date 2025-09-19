@@ -111,6 +111,25 @@ productController.updateProduct = async (req, res) => {
     }
 };
 
+productController.removeProductImage = async (req, res) => {
+    try {
+        const { productId } = req.params;
+        const { images } = req.body;
+        const result = await productService.removeProductImage(productId, images);
+        sendResponse(res, 200, {
+            success: true,
+            message: "Product Image removed successfully!",
+            data: result
+        });
+    } catch (err) {
+        sendResponse(res, 500, {
+            success: false,
+            message: "Failed to remove product image!",
+            error: err.message
+        });
+    }
+}
+
 productController.deleteProduct = async (req, res) => {
     try {
         const product = await productService.deleteProduct(req.params.id);
