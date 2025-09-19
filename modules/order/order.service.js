@@ -37,17 +37,13 @@ orderService.createOrder = async (userId, products, orderData) => {
         }
     }, 0);
 
-    if (activeCampaign) {
-        activeCampaign.sells += 1;
-        await activeCampaign.save();
-    }
-
     return await new Order({
         userId,
         products,
         totalAmount,
         address: orderData.address,
-        paymentMethod: orderData.paymentMethod
+        paymentMethod: orderData.paymentMethod,
+        sellOn: activeCampaign ? activeCampaign.title : "as-usual"
     }).save();
 };
 
@@ -62,7 +58,6 @@ orderService.cancelOrder = async (orderId) => {
     }
     return await Order.findByIdAndUpdate(orderId, { status: "cancelled" }, { new: true, runValidators: true });
 };
-
 
 orderService.getOrdersByUser = async (userId) => {
     const result = await Order.find({ userId }).populate('products.productId');

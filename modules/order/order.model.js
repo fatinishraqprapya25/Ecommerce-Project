@@ -41,6 +41,10 @@ const orderSchema = new mongoose.Schema({
         type: String,
         enum: ['cash_on_delivery', 'bkash', 'nagad'],
         required: true
+    },
+    sellOn: {
+        type: String,
+        required: true
     }
 }, { timestamps: true });
 
