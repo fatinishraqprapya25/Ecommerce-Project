@@ -1,4 +1,5 @@
 const Product = require('./product.model.js');
+const cloudinary = require("../../config/cloudinary.js");
 
 const productService = {};
 
@@ -63,6 +64,16 @@ productService.updateProduct = async (id, updateData) => {
         runValidators: true
     });
 };
+
+productService.removeProductImage = async (id, images = []) => {
+    const product = await Product.findById(id);
+    product.images = product.images.filter(img => !images.includes(img.filename));
+    for (const image of images) {
+        await cloudinary.uploader.destroy(image);
+    }
+    const result = await product.save();
+    return result;
+}
 
 productService.deleteProduct = async (id) => {
     return await Product.findByIdAndUpdate(id, { isDeleted: true }, { new: true });
