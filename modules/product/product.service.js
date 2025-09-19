@@ -75,6 +75,20 @@ productService.removeProductImage = async (id, images = []) => {
     return result;
 }
 
+productService.addProductImages = async (id, images) => {
+    const product = await Product.findById(id);
+    if (product.images.length + images.length > 3) {
+        for (const image of images) {
+            console.log(image);
+            await cloudinary.uploader.destroy(image.filename);
+        }
+        throw new Error("Product cannot contain more than 3 images!");
+    }
+    product.images.push(...images);
+    const result = await product.save();
+    return result;
+}
+
 productService.deleteProduct = async (id) => {
     return await Product.findByIdAndUpdate(id, { isDeleted: true }, { new: true });
 };

@@ -130,6 +130,38 @@ productController.removeProductImage = async (req, res) => {
     }
 }
 
+productController.addProductImages = async (req, res) => {
+    try {
+        const { productId } = req.params;
+        const images = [];
+        if (req.files) {
+            for (const image of req.files) {
+                images.push({
+                    path: image.path,
+                    filename: image.filename
+                });
+            }
+        } else {
+            sendResponse(res, 200, {
+                success: false,
+                message: "no file uplaoded!"
+            });
+        }
+        const result = await productService.addProductImages(productId, images);
+        sendResponse(res, 200, {
+            success: true,
+            message: "Product Images added successfully!",
+            data: result
+        });
+    } catch (err) {
+        sendResponse(res, 500, {
+            success: false,
+            message: "Failed to add images!",
+            error: err.message
+        });
+    }
+}
+
 productController.deleteProduct = async (req, res) => {
     try {
         const product = await productService.deleteProduct(req.params.id);
