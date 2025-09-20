@@ -89,8 +89,9 @@ ratingController.updateRating = async (req, res) => {
 
 ratingController.deleteRating = async (req, res) => {
     const { id } = req.params;
+    const userId = req.user.id;
     try {
-        const deletedRating = await ratingService.deleteRating(id);
+        const deletedRating = await ratingService.deleteRating(id, userId);
 
         if (!deletedRating) {
             return sendResponse(res, 404, {

@@ -19,19 +19,20 @@ ratingService.getRatingsByProduct = async (productId) => {
 };
 
 ratingService.updateRating = async (id, userId, newRatingValue) => {
-    const rating = await Rating.findById(id);
+    const rating = await Rating.findOneAndUpdate(
+        { _id: id, userId },
+        { rating: newRatingValue },
+        { new: true }
+    );
+
     if (!rating) throw new Error("Rating not found!");
-    if (rating.userId.equals(userId)) {
-        rating.rating = newRatingValue;
-        const result = await rating.save();
-        return result;
-    } else {
-        throw new Error("The rating is not created by the user!");
-    }
+    return rating;
 };
 
-ratingService.deleteRating = async (id) => {
-    return await Rating.findByIdAndDelete(id);
+ratingService.deleteRating = async (id, userId) => {
+    const rating = await Rating.findOneAndDelete({ _id: id, userId });
+    if (!rating) throw new Error("Rating not found!");
+    return rating;
 };
 
 module.exports = ratingService;
