@@ -15,7 +15,7 @@ ratingRouter.post("/", checkLogin, validateRequest(ratingValidations.createRatin
 
 ratingRouter.put("/:id", checkLogin, ratingController.updateRating);
 
-ratingRouter.delete("/:id", checkLogin, ratingController.deleteRating)
+ratingRouter.delete("/:id", checkLogin, ratingController.deleteRating);
 
 
 module.exports = ratingRouter;
