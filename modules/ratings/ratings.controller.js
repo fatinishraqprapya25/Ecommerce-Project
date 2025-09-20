@@ -61,9 +61,10 @@ ratingController.getRatingsByProduct = async (req, res) => {
 
 ratingController.updateRating = async (req, res) => {
     const { id, rating } = req.body;
+    const userId = req.user.id;
 
     try {
-        const updatedRating = await ratingService.updateRating(id, rating);
+        const updatedRating = await ratingService.updateRating(id, userId, rating);
 
         if (!updatedRating) {
             return sendResponse(res, 404, {

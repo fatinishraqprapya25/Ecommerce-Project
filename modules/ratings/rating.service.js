@@ -18,12 +18,16 @@ ratingService.getRatingsByProduct = async (productId) => {
         .populate("userId", "name email");
 };
 
-ratingService.updateRating = async (id, newRatingValue) => {
-    return await Rating.findByIdAndUpdate(
-        id,
-        { rating: newRatingValue },
-        { new: true, runValidators: true }
-    );
+ratingService.updateRating = async (id, userId, newRatingValue) => {
+    const rating = await Rating.findById(id);
+    if (!rating) throw new Error("Rating not found!");
+    if (rating.userId.equals(userId)) {
+        rating.rating = newRatingValue;
+        const result = await rating.save();
+        return result;
+    } else {
+        throw new Error("The rating is not created by the user!");
+    }
 };
 
 ratingService.deleteRating = async (id) => {
