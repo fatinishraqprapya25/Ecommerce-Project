@@ -88,7 +88,6 @@ ratingController.updateRating = async (req, res) => {
 
 ratingController.deleteRating = async (req, res) => {
     const { id } = req.params;
-
     try {
         const deletedRating = await ratingService.deleteRating(id);
 

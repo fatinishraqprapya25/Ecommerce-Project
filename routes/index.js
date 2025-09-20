@@ -6,6 +6,7 @@ const cartRouter = require("../modules/cart/cart.route");
 const orderRouter = require("../modules/order/order.route");
 const wishlistRouter = require("../modules/wishlist/wishlist.route");
 const campaignRouter = require("../modules/campaign/campaign.route");
+const ratingRouter = require("../modules/ratings/rating.route");
 
 const appRouter = Router();
 
@@ -18,6 +19,7 @@ const routes = [
     { path: "/orders", router: orderRouter },
     { path: "/wishlist", router: wishlistRouter },
     { path: "/campaign", router: campaignRouter },
+    { path: "/rating", router: ratingRouter }
 ]
 
 routes.forEach(route => appRouter.use(route.path, route.router));

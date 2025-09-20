@@ -1,4 +1,4 @@
-const Rating = require("../models/rating.model");
+const Rating = require("./rating.model");
 
 const ratingService = {};
 
