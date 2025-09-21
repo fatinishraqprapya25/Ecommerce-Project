@@ -13,6 +13,7 @@ This is a full-featured eCommerce application built using **Express.js** and **M
 - **Product Management**
   - Create, update, delete products (Admin only)
   - Product listing with search and filtering options
+  - User can rate product after ordering.
 - **Cart, Wishlist & Order System**
   - Add/remove products from the cart
   - Place and manage orders
@@ -58,6 +59,9 @@ This is a full-featured eCommerce application built using **Express.js** and **M
         BCRYPT_CIRCLE_COUNT=10
         EMAIL=[email address removed]
         APP_PASS=your_email_app_password
+        CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+        CLOUDINARY_API_KEY=your_cloudinary_api_key
+        CLOUDINARY_API_SECRET=your_cloudinary_api_secret
         ```
 
 4.  Run the application:
